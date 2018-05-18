@@ -41,17 +41,21 @@ class GameScreen : Screen
         if (up)
         {
             level.MoveObstacles(moveUp, character.Speed);
+            yMap--;
         }
         if (right)
         {
+            xMap++;
             level.MoveObstacles(moveRight, character.Speed);
         }
         if (down)
         {
+            yMap++;
             level.MoveObstacles(moveDown, character.Speed);
         }
         if (left)
         {
+            xMap--;
             level.MoveObstacles(moveLeft, character.Speed);
         }
     }

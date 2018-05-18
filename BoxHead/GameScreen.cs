@@ -13,6 +13,7 @@ class GameScreen : Screen
     protected Font font;
     protected short xMap;
     protected short yMap;
+
     public GameScreen(Hardware hardware) : base(hardware)
     {
         font = new Font("fonts/PermanentMarker-Regular.ttf", 20);

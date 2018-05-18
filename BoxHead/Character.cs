@@ -8,6 +8,8 @@ class Character : MovableSprite
     public List<Weapon> weapons { get; }
     public int Points { get; set; }
     public Image character;
+    public short XMap { get; set; }
+    public short YMap { get; set; }
 
     public Character(double life)
     {

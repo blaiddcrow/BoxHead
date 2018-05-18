@@ -3,7 +3,7 @@
     public double Life { get; set; }
     public double Damage { get; set; }
     public bool IsAlive { get; set; }
-    protected Image enemy;
+    public Image enemy;
 
     public Enemy(double life, double damage)
     {
@@ -11,7 +11,7 @@
         Damage = damage;
         IsAlive = true;
         Speed = 1;
-        enemy = new Image("", 60, 60);
+        enemy = new Image("imgs/enemy/zombie.png", 60, 60);
     }
 
     public void GoToPlayer(Character character)
@@ -54,11 +54,18 @@
         {
             Y += Speed;
         }
+
+        MoveTo(X, Y);
+        enemy.MoveTo(X, Y);
+    }
+
+    public bool CharacterIsOnRange(Character character)
+    {
+        return CollidesWith(character);
     }
 
     public void Attack(Character character)
     {
-        if (CollidesWith(character))
-            character.Life -= Damage;
+        character.Life -= Damage;
     }
 }

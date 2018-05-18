@@ -8,6 +8,7 @@ using Tao.Sdl;
 
 class GameScreen : Screen
 {
+    protected Enemy enemy; // Test enemy.
     protected Level level;
     protected Character character;
     protected Font font;
@@ -21,6 +22,8 @@ class GameScreen : Screen
         character = new Character(300);
         xMap = 0;
         yMap = 0;
+
+        enemy = new Enemy(100, 25); // Test enemy.
     }
 
     private void moveCharacter()
@@ -63,6 +66,9 @@ class GameScreen : Screen
         character.character.MoveTo(centeredCharacterX, centeredCharacterY);
         character.MoveTo(centeredCharacterX, centeredCharacterY);
 
+        enemy.MoveTo(400, 400);
+        enemy.enemy.MoveTo(400, 400);
+
         short oldX, oldY, oldXMap, oldYMap;
 
         do
@@ -78,11 +84,7 @@ class GameScreen : Screen
 
                 level.DrawObstacles(hardware);
                 hardware.DrawImage(character.character);
-                /*
-                hardware.DrawSprite(character.character,
-                    centeredCharacterX, centeredCharacterY, 0, 0, 
-                    GameController.SCREEN_WIDTH, GameController.SCREEN_HEIGHT);
-                    */
+                hardware.DrawImage(enemy.enemy);
                 hardware.UpdateScreen();
                 // TODO: 2. Move character from keyboard input.
                 oldX = character.X;
@@ -90,10 +92,13 @@ class GameScreen : Screen
                 oldXMap = level.XMap;
                 oldYMap = level.YMap;
                 moveCharacter();
+                
                 // TODO: 3. Move enemies and objects.
+                enemy.GoToPlayer(character);
 
                 // TODO: 4. Check collisions and update game state.
-
+                if (enemy.CharacterIsOnRange(character))
+                    enemy.Attack(character);
             }
         }
         while (character.Life > 0 && !hardware.IsKeyPressed(Hardware.KEY_ESC));

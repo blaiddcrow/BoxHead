@@ -25,7 +25,7 @@ class Sprite
         Y = y;
     }
 
-    public bool CollidesWith(Sprite sp) // TODO: Check if it works properly.
+    public bool CollidesWith(Sprite sp)
     {
         return (X + this.Width > sp.X 
             && X < sp.X + this.Width

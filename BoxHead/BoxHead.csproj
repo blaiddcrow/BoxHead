@@ -97,6 +97,9 @@
     <Content Include="imgs\effects\explosion.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="imgs\enemy\zombie.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="imgs\others\boxhead.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

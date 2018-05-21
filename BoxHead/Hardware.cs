@@ -13,6 +13,8 @@ class Hardware
     public const int KEY_LEFT = Sdl.SDLK_LEFT;
     public const int KEY_RIGHT = Sdl.SDLK_RIGHT;
     public const int KEY_SPACE = Sdl.SDLK_SPACE;
+    public const int KEY_INSERT = Sdl.SDLK_INSERT;
+
 
     short screenWidth;
     short screenHeight;

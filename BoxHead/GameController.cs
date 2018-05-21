@@ -14,11 +14,8 @@ class GameController
             new Hardware(SCREEN_WIDTH, SCREEN_HEIGHT, 24, false);
 
         WelcomeScreen welcome = new WelcomeScreen(hardware);
-        GameScreen game = new GameScreen(hardware);
         MenuScreen menu = new MenuScreen(hardware);
-        HighscoreScreen highScores = new HighscoreScreen(hardware);
         CreditsScreen credits = new CreditsScreen(hardware);
-
 
         do
         {
@@ -26,14 +23,8 @@ class GameController
             welcome.Show();
             menu.Show();
             hardware.ClearScreen();
-            game.Show();
-            hardware.ClearScreen();
-            highScores.Show();
-            hardware.ClearScreen();
             credits.Show();
         }
-        while (!welcome.GetExit());
-
-
+        while (!welcome.GetExit() && !menu.GetExit());
     }
 }

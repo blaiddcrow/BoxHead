@@ -14,6 +14,7 @@ class GameScreen : Screen
     protected Font font;
     protected short xMap;
     protected short yMap;
+    protected int round;
 
     public GameScreen(Hardware hardware) : base(hardware)
     {
@@ -22,8 +23,13 @@ class GameScreen : Screen
         character = new Character(300);
         xMap = 0;
         yMap = 0;
-
+        round = 0;
         enemy = new Enemy(100, 25); // Test enemy.
+    }
+
+    public GameScreen(Hardware hardware, int round) : this(hardware)
+    {
+        this.round = round;
     }
 
     private void moveCharacter()

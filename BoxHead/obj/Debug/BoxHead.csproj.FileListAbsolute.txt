@@ -1,0 +1,90 @@
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\BoxHead.exe.config
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\jpeg.dll
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\libfreetype-6.dll
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\libpng12-0.dll
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\libpng12.dll
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\SDL.dll
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\SDL_gfx.dll
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\SDL_image.dll
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\SDL_mixer.dll
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\SDL_ttf.dll
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\Tao.Sdl.dll
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\zlib1.dll
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\BoxHead.exe
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\BoxHead.pdb
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\obj\Debug\BoxHead.csprojResolveAssemblyReference.cache
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\obj\Debug\BoxHead.exe
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\obj\Debug\BoxHead.pdb
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\levels\level1.txt
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\fonts\Creepster-Regular.ttf
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\fonts\PermanentMarker-Regular.ttf
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\imgs\character\pistol\pistol.png
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\imgs\effects\explosion.png
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\imgs\others\floor.png
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\imgs\items\ammopack.png
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\imgs\items\grenadepack.png
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\imgs\items\healthpack.png
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\imgs\obstacles\barrel.png
+C:\Users\BlaiddCrow\Documents\DAM\Programacion\BoxHead\BoxHead\bin\Debug\imgs\obstacles\wall.png
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\BoxHead.exe.config
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\obj\Debug\BoxHead.exe
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\obj\Debug\BoxHead.pdb
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\imgs\character\pistol\pistol.png
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\imgs\effects\explosion.png
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\imgs\others\floor.png
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\imgs\items\ammopack.png
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\imgs\items\grenadepack.png
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\imgs\items\healthpack.png
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\imgs\obstacles\barrel.png
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\imgs\obstacles\wall.png
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\jpeg.dll
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\levels\level1.txt
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\libfreetype-6.dll
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\libpng12-0.dll
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\libpng12.dll
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\SDL.dll
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\SDL_gfx.dll
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\SDL_image.dll
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\SDL_mixer.dll
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\SDL_ttf.dll
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\Tao.Sdl.dll
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\zlib1.dll
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\fonts\Creepster-Regular.ttf
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\fonts\PermanentMarker-Regular.ttf
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\BoxHead.exe
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\BoxHead.pdb
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\obj\Debug\BoxHead.csprojResolveAssemblyReference.cache
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\imgs\others\wsBackground.png
+C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\imgs\others\boxhead.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\BoxHead.exe.config
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\obj\Debug\BoxHead.exe
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\obj\Debug\BoxHead.pdb
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\character\pistol\pistol.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\effects\explosion.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\enemy\zombie.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\others\boxhead.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\others\floor.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\items\ammopack.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\items\grenadepack.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\items\healthpack.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\obstacles\barrel.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\obstacles\wall.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\others\wsBackground.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\jpeg.dll
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\levels\level1.txt
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\libfreetype-6.dll
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\libpng12-0.dll
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\libpng12.dll
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\SDL.dll
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\SDL_gfx.dll
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\SDL_image.dll
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\SDL_mixer.dll
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\SDL_ttf.dll
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\Tao.Sdl.dll
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\zlib1.dll
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\fonts\Creepster-Regular.ttf
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\fonts\PermanentMarker-Regular.ttf
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\BoxHead.exe
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\BoxHead.pdb
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\obj\Debug\BoxHead.csprojResolveAssemblyReference.cache
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\others\menuBackground.png

@@ -121,6 +121,9 @@
     <Content Include="imgs\obstacles\wall.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="imgs\others\menuBackground.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="imgs\others\wsBackground.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

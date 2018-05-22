@@ -1,19 +1,27 @@
-﻿using System.Collections.Generic;
+﻿/*
+ * V.0.0.6 21/05/2018 - Javier Saorín Vidal: Added methods to manage the options. 
+ */
+using System;
+using System.Collections.Generic;
+using Tao.Sdl;
 
 class MenuScreen : Screen
 {
     public Image background { get; set; }
     protected Font font;
-    private List<string> options;
+    private List<IntPtr> optionsRed;
+    private List<IntPtr> optionsWhite;
     public int ActualOption { get; set; }
     private bool exit;
     public int StartRound { get; set; }
+    private int amountOfOptions { get; set; }
 
     public MenuScreen(Hardware hardware) : base(hardware)
     {
         background = new Image("imgs/others/menuBackground.png", 1280, 720);
         font = new Font("fonts/PermanentMarker-Regular.ttf", 60);
-        options = new List<string>();
+        optionsRed = new List<IntPtr>();
+        optionsWhite = new List<IntPtr>();
         initialiceOptions();
         exit = false;
         StartRound = 0;
@@ -21,46 +29,49 @@ class MenuScreen : Screen
 
     public override void Show()
     {
-        bool insert = false;
+        bool isOptionSelected = false;
         background.MoveTo(0, 0);
 
         do
         {
-            insert = 
-                hardware.IsKeyPressed(Hardware.KEY_INSERT); // Not work yet.
-
             hardware.ClearScreen();
             hardware.DrawImage(background);
 
-            for (int o = 0; o < options.Count; o++)
+            for (int option = 0; option < amountOfOptions; option++)
             {
-                if (o == ActualOption)
+                if (option == ActualOption)
                     hardware.WriteText(
-                        options[o], 40, (short)(100 * o), 255, 255, 255, font);
+                        optionsWhite[option], 40, (short)(100 * option));
                 else
                     hardware.WriteText(
-                        options[o], 40, (short)(100 * o), 255, 0, 0, font);
+                        optionsRed[option], 40, (short)(100 * option));
             }
-
             hardware.UpdateScreen();
+            isOptionSelected = CheckInput();
 
-            if (insert)
+            if (isOptionSelected)
                 ManageMenu();
-
-            MoveBetweenOptions();
         }
-        while (!insert);
+        while (!isOptionSelected);
     }
 
     private void initialiceOptions()
     {
-        options.Add("Start a new game.");
-        options.Add("Continue game.");
-        options.Add("Select start round.");
-        options.Add("See highscores.");
-        options.Add("Map editor.");
-        options.Add("Options.");
-        options.Add("Quit the game.");
+        string[] options =
+        {
+            "Start a new game.", "Continue game.", "Select start round.",
+            "See highscores.", "Map editor.", "Options.", "Quit the game."
+        };
+
+        amountOfOptions = options.Length;
+
+        foreach (string option in options)
+            optionsRed.Add(SdlTtf.TTF_RenderText_Solid(
+                font.GetFontType(), option, hardware.Red));
+
+        foreach (string option in options)
+            optionsWhite.Add(SdlTtf.TTF_RenderText_Solid(
+                font.GetFontType(), option, hardware.White));
     }
 
     public void ManageMenu()
@@ -101,10 +112,12 @@ class MenuScreen : Screen
         }
     }
 
-    private void MoveBetweenOptions()
+    private bool CheckInput()
     {
-        bool up = false, down = false;
         int key = hardware.KeyPressed();
+
+        bool up = false, down = false;
+        bool optionSelected = (key == Hardware.KEY_ENTER);
 
         if (key == Hardware.KEY_UP)
             up = true;
@@ -112,20 +125,18 @@ class MenuScreen : Screen
             down = true;
 
         if (up)
-        {
             if (ActualOption == 0)
-                ActualOption = options.Count - 1;
+                ActualOption = optionsRed.Count - 1;
             else
                 ActualOption--;
-        }
 
         if (down)
-        {
-            if (ActualOption == options.Count - 1)
+            if (ActualOption == optionsRed.Count - 1)
                 ActualOption = 0;
             else
                 ActualOption++;
-        }
+
+        return optionSelected;
     }
 
     public bool GetExit()

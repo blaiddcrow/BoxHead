@@ -1,5 +1,8 @@
 ﻿/*
- * V.0.0.1 14/05/2018 - Javier Saorín Vidal:
+ * V.0.0.6 21/05/2018 - Javier Saorín Vidal: Modified the management of the screens
+ * now the menu screen starts the game and the map editor.
+ * V.0.0.1 14/05/2018 - Javier Saorín Vidal: Created all the sceens and a basic
+ * structure to manage them.
  */
 
 using System;

@@ -5,6 +5,7 @@ using Tao.Sdl;
 * This class will manage every hardware issue: screen resolution,
 * keyboard input and some other aspects.
 **/
+
 class Hardware
 {
     public const int KEY_ESC = Sdl.SDLK_ESCAPE;
@@ -14,7 +15,10 @@ class Hardware
     public const int KEY_RIGHT = Sdl.SDLK_RIGHT;
     public const int KEY_SPACE = Sdl.SDLK_SPACE;
     public const int KEY_INSERT = Sdl.SDLK_INSERT;
+    public const int KEY_ENTER = Sdl.SDLK_RETURN;
 
+    public Sdl.SDL_Color Red { get; set; }
+    public Sdl.SDL_Color White { get; set; }
 
     short screenWidth;
     short screenHeight;
@@ -26,6 +30,9 @@ class Hardware
         screenWidth = width;
         screenHeight = height;
         colorDepth = depth;
+
+        Red = new Sdl.SDL_Color(255, 0, 0);
+        White = new Sdl.SDL_Color(255, 255, 255);
 
         int flags = Sdl.SDL_HWSURFACE | Sdl.SDL_DOUBLEBUF | Sdl.SDL_ANYFORMAT;
         if (fullScreen)
@@ -129,6 +136,15 @@ class Hardware
         Sdl.SDL_Rect dest = new Sdl.SDL_Rect(x, y, screenWidth, screenHeight);
         Sdl.SDL_BlitSurface(textAsImage, ref src, screen, ref dest);
     }
+
+    // Writes a text in the specified coordinates
+    public void WriteText(IntPtr textAsImage, short x, short y)
+    {
+        Sdl.SDL_Rect src = new Sdl.SDL_Rect(0, 0, screenWidth, screenHeight);
+        Sdl.SDL_Rect dest = new Sdl.SDL_Rect(x, y, screenWidth, screenHeight);
+        Sdl.SDL_BlitSurface(textAsImage, ref src, screen, ref dest);
+    }
+
     // Writes a line in the specified coordinates, with the specified color and alpha
     public void DrawLine(short x, short y, short x2, short y2, byte r, byte g, byte b, byte alpha)
     {

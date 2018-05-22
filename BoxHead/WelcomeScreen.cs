@@ -19,7 +19,7 @@ class WelcomeScreen : Screen
         short contText=0;
 
         do
-        {
+         {
             hardware.ClearScreen();
             hardware.DrawSprite(background, 0, 0, 0, 0
                 , GameController.SCREEN_WIDTH,
@@ -46,6 +46,6 @@ class WelcomeScreen : Screen
 
     private bool CanGoToNextScreen()
     {
-        return hardware.IsKeyPressed(Hardware.KEY_SPACE);
+        return hardware.KeyPressed() == Hardware.KEY_SPACE;
     }
 }

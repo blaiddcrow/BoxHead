@@ -5,34 +5,34 @@
  * structure to manage them.
  */
 
-using System;
-using System.Collections.Generic;
-using Tao.Sdl;
-
 class GameScreen : Screen
 {
+    protected EnemyGenerator enemyGenerator;
     protected Enemy enemy; // Test enemy.
     protected Level level;
     protected Character character;
     protected Font font;
     protected short xMap;
     protected short yMap;
-    protected int round;
+    public int Round { get; set; }
 
     public GameScreen(Hardware hardware) : base(hardware)
     {
         font = new Font("fonts/PermanentMarker-Regular.ttf", 20);
-        level = new Level("levels/level1.txt");
+        level = new Level();
+        level.ActualLevel = "levels/level1.txt";
+        level.Load();
         character = new Character(300);
         xMap = 0;
         yMap = 0;
-        round = 0;
-        enemy = new Enemy(100, 25); // Test enemy.
+        Round = 1;
+        enemyGenerator = new EnemyGenerator(hardware);
+        enemy = new Enemy(100, 25, 1); // Test enemy.
     }
 
     public GameScreen(Hardware hardware, int round) : this(hardware)
     {
-        this.round = round;
+        Round = round;
     }
 
     private void moveCharacter()
@@ -79,8 +79,9 @@ class GameScreen : Screen
         character.character.MoveTo(centeredCharacterX, centeredCharacterY);
         character.MoveTo(centeredCharacterX, centeredCharacterY);
 
+        enemyGenerator.StartRound(1);
+
         enemy.MoveTo(400, 400);
-        enemy.enemy.MoveTo(400, 400);
 
         short oldX, oldY, oldXMap, oldYMap;
 
@@ -88,7 +89,7 @@ class GameScreen : Screen
         {
             if (character.Life > 0)
             {
-                // TODO: 1. Draw everything.
+                // 1. Draw everything.
                 hardware.UpdateScreen();
 
                 hardware.DrawSprite(level.Floor, 0, 0, level.XMap,
@@ -98,18 +99,29 @@ class GameScreen : Screen
                 level.DrawObstacles(hardware);
                 hardware.DrawImage(character.character);
                 hardware.DrawImage(enemy.enemy);
+
+                foreach (Enemy enemy in enemyGenerator.enemies)
+                {
+                    hardware.DrawImage(enemy.enemy);
+                }
+
                 hardware.UpdateScreen();
-                // TODO: 2. Move character from keyboard input.
+                // 2. Move character from keyboard input.
                 oldX = character.X;
                 oldY = character.Y;
                 oldXMap = level.XMap;
                 oldYMap = level.YMap;
                 moveCharacter();
-                
-                // TODO: 3. Move enemies and objects.
+
+                // 3. Move enemies and objects.
+                foreach (Enemy enemy in enemyGenerator.enemies)
+                {
+                    enemy.GoToPlayer(character);
+                }
+
                 enemy.GoToPlayer(character);
 
-                // TODO: 4. Check collisions and update game state.
+                // 4. Check collisions and update game state.
                 if (enemy.CharacterIsOnRange(character))
                     enemy.Attack(character);
             }

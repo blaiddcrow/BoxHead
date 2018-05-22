@@ -9,7 +9,6 @@
  * this class.
  */
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -21,21 +20,21 @@ class Level
     public List<Obstacle> Obstacles { get; }
     public List<HealthPack> Healthpacks { get; }
     public List<Enemy> Enemies { get; }
+
     public Image Floor { get; set; }
     public short Width { get; set; }
     public short Height { get; set; }
     public short XMap { get; set; }
     public short YMap { get; set; }
+    public string ActualLevel { get; set; }
 
-    public Level(string fileName)
+    public Level()
     {
         Obstacles = new List<Obstacle>();
         Healthpacks = new List<HealthPack>();
         Enemies = new List<Enemy>();
         Floor = new Image("imgs/others/floor.png", 1280, 720);
         XMap = YMap = 0;
-
-        Load(fileName);
     }
 
     public void DrawObstacles(Hardware hardware)
@@ -72,11 +71,11 @@ class Level
         }
     }
 
-    public void Load(string fileName)
+    public void Load()
     {
-        if (File.Exists(fileName))
+        if (File.Exists(ActualLevel))
         {
-            string[] lines = File.ReadAllLines(fileName);
+            string[] lines = File.ReadAllLines(ActualLevel);
             for (int i = 0; i < lines.Length; i++)
             {
                 string[] blockData = lines[i].Split(';');

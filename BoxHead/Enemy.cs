@@ -5,12 +5,12 @@
     public bool IsAlive { get; set; }
     public Image enemy;
 
-    public Enemy(double life, double damage)
+    public Enemy(double life, double damage, short speed)
     {
         Life = life;
         Damage = damage;
         IsAlive = true;
-        Speed = 1;
+        Speed = speed;
         enemy = new Image("imgs/enemy/zombie.png", 60, 60);
     }
 
@@ -18,6 +18,7 @@
     {
         short xDiff = (short)(character.X - this.X);
         short YDiff = (short)(character.Y - this.Y);
+
         if (xDiff < 0 && YDiff < 0)
         { 
             X -= Speed;

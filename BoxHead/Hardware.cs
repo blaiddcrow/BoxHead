@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * V.0.0.8 23/05/2018 - Javier Saorín Vidal: Added GetEvents method to manage
+ * the mouse input.
+ */
+
+using System;
 using Tao.Sdl;
 
 /**
@@ -23,6 +28,10 @@ class Hardware
     short screenWidth;
     short screenHeight;
     short colorDepth;
+
+    int oldMouseX;
+    int oldMouseY;
+
     IntPtr screen;
 
     public Hardware(short width, short height, short depth, bool fullScreen)
@@ -158,5 +167,32 @@ class Hardware
     public void DrawLine(short x, short y, short x2, short y2, byte r, byte g, byte b, byte alpha)
     {
         SdlGfx.lineRGBA(screen, x, y, x2, y2, r, g, b, alpha);
+    }
+
+    public void GetEvents(out int mouseX, out int mouseY,
+        out int mouseClickX, out int mouseClickY)
+    {
+        mouseX = oldMouseX;
+        mouseY = oldMouseY;
+        mouseClickX = mouseClickY = -1;
+        Sdl.SDL_PumpEvents();
+        Sdl.SDL_Event evt;
+        if (Sdl.SDL_PollEvent(out evt) == 1)
+        {
+            if (evt.type == Sdl.SDL_MOUSEMOTION)
+            {
+                mouseX = evt.motion.x;
+                mouseY = evt.motion.y;
+
+                oldMouseX = mouseX;
+                oldMouseY = mouseY;
+            }
+            if (evt.type == Sdl.SDL_MOUSEBUTTONDOWN)
+            {
+                mouseClickX = evt.motion.x;
+                mouseClickY = evt.motion.y;
+            }
+        }
+
     }
 }

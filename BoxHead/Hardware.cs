@@ -32,6 +32,8 @@ class Hardware
     int oldMouseX;
     int oldMouseY;
 
+    static short startX, startY;
+
     IntPtr screen;
 
     public Hardware(short width, short height, short depth, bool fullScreen)
@@ -193,6 +195,28 @@ class Hardware
                 mouseClickY = evt.motion.y;
             }
         }
+    }
 
+    // Scroll Methods
+
+    public static void ResetScroll()
+    {
+        startX = startY = 0;
+    }
+
+    public static void ScrollTo(short newStartX, short newStartY)
+    {
+        startX = newStartX;
+        startY = newStartY;
+    }
+
+    public static void ScrollHorizontally(short xDespl)
+    {
+        startX += xDespl;
+    }
+
+    public static void ScrollVertically(short yDespl)
+    {
+        startY += yDespl;
     }
 }

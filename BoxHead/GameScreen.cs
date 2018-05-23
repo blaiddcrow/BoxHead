@@ -14,6 +14,8 @@ class GameScreen : Screen
     protected Font font;
     protected short xMap;
     protected short yMap;
+    private int mouseX, mouseY;
+    private int mouseClickX, mouseClickY;
     public int Round { get; set; }
 
     public GameScreen(Hardware hardware) : base(hardware)
@@ -76,7 +78,7 @@ class GameScreen : Screen
         short centeredCharacterY =
            (short)((GameController.SCREEN_HEIGHT / 2) - (character.Height / 2));
 
-        character.character.MoveTo(centeredCharacterX, centeredCharacterY);
+        character.Image.MoveTo(centeredCharacterX, centeredCharacterY);
         character.MoveTo(centeredCharacterX, centeredCharacterY);
 
         enemyGenerator.StartRound(1);
@@ -97,7 +99,7 @@ class GameScreen : Screen
                     GameController.SCREEN_HEIGHT);
 
                 level.DrawObstacles(hardware);
-                hardware.DrawImage(character.character);
+                hardware.DrawImage(character.Image);
                 hardware.DrawImage(enemy.enemy);
 
                 foreach (Enemy enemy in enemyGenerator.enemies)
@@ -111,8 +113,10 @@ class GameScreen : Screen
                 oldY = character.Y;
                 oldXMap = level.XMap;
                 oldYMap = level.YMap;
+                hardware.GetEvents(
+                    out mouseX, out mouseY, out mouseClickX, out mouseClickY);
                 moveCharacter();
-
+                character.Animate(mouseX, mouseY);
                 // 3. Move enemies and objects.
                 foreach (Enemy enemy in enemyGenerator.enemies)
                 {

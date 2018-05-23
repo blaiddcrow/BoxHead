@@ -59,7 +59,6 @@ C:\Users\Keru\Documents\Visual Studio 2015\Projects\BoxHead\BoxHead\bin\Debug\im
 C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\BoxHead.exe.config
 C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\obj\Debug\BoxHead.exe
 C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\obj\Debug\BoxHead.pdb
-C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\character\pistol\pistol.png
 C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\effects\explosion.png
 C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\enemy\zombie.png
 C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\others\boxhead.png
@@ -89,3 +88,11 @@ C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\BoxHead.pdb
 C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\obj\Debug\BoxHead.csprojResolveAssemblyReference.cache
 C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\others\menuBackground.png
 C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\obstacles\spawnpoint.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\character\pistol\pistol0.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\character\pistol\pistol180.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\character\pistol\pistol270.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\character\pistol\pistol90.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\character\pistol\pistol135.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\character\pistol\pistol225.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\character\pistol\pistol315.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\character\pistol\pistol45.png

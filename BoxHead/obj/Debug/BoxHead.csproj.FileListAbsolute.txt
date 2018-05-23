@@ -88,3 +88,4 @@ C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\BoxHead.exe
 C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\BoxHead.pdb
 C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\obj\Debug\BoxHead.csprojResolveAssemblyReference.cache
 C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\others\menuBackground.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\obstacles\spawnpoint.png

@@ -56,6 +56,7 @@
     <Compile Include="Character.cs" />
     <Compile Include="CreditsScreen.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="EnemyGenerator.cs" />
     <Compile Include="Font.cs" />
     <Compile Include="GameController.cs" />
     <Compile Include="GameScreen.cs" />
@@ -98,6 +99,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="imgs\enemy\zombie.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imgs\obstacles\spawnpoint.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="imgs\others\boxhead.png">

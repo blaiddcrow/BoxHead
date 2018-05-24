@@ -37,8 +37,8 @@ class EnemyGenerator
 
         for (int i = 0; i < amountOfEnemies; i++)
         {
-            double life = random.NextDouble() * (150 - 50) + 50;
-            double damage = random.NextDouble() * (50 - 25) + 25;
+            double life = random.NextDouble() * 100 + random.Next(50, 100);
+            double damage = random.NextDouble() * 25 + random.Next(0, 25);
             short speed = 
                 (short)((short)(round / 10) + (short)(random.Next(0, 1)));
 
@@ -62,7 +62,7 @@ class EnemyGenerator
             int spawnNumber = random.Next(0, spawnPoints.Count - 1);
             randomSpawn = spawnPoints[spawnNumber];
             enemy.MoveTo(randomSpawn.X, randomSpawn.Y);
-            enemy.enemy.MoveTo(randomSpawn.X, randomSpawn.Y);
+            enemy.EnemyImage.MoveTo(randomSpawn.X, randomSpawn.Y);
         }
     }
 }

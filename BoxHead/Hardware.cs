@@ -21,6 +21,33 @@ class Hardware
     public const int KEY_SPACE = Sdl.SDLK_SPACE;
     public const int KEY_INSERT = Sdl.SDLK_INSERT;
     public const int KEY_ENTER = Sdl.SDLK_RETURN;
+    public const int KEY_BACKSPACE = Sdl.SDLK_BACKSPACE;
+    public const int KEY_A = Sdl.SDLK_a;
+    public const int KEY_B = Sdl.SDLK_b;
+    public const int KEY_C = Sdl.SDLK_c;
+    public const int KEY_D = Sdl.SDLK_d;
+    public const int KEY_E = Sdl.SDLK_e;
+    public const int KEY_F = Sdl.SDLK_f;
+    public const int KEY_G = Sdl.SDLK_g;
+    public const int KEY_H = Sdl.SDLK_h;
+    public const int KEY_I = Sdl.SDLK_i;
+    public const int KEY_J = Sdl.SDLK_j;
+    public const int KEY_K = Sdl.SDLK_k;
+    public const int KEY_L = Sdl.SDLK_l;
+    public const int KEY_M = Sdl.SDLK_m;
+    public const int KEY_N = Sdl.SDLK_n;
+    public const int KEY_O = Sdl.SDLK_o;
+    public const int KEY_P = Sdl.SDLK_p;
+    public const int KEY_Q = Sdl.SDLK_q;
+    public const int KEY_R = Sdl.SDLK_r;
+    public const int KEY_S = Sdl.SDLK_s;
+    public const int KEY_T = Sdl.SDLK_t;
+    public const int KEY_U = Sdl.SDLK_u;
+    public const int KEY_V = Sdl.SDLK_v;
+    public const int KEY_W = Sdl.SDLK_w;
+    public const int KEY_X = Sdl.SDLK_x;
+    public const int KEY_Y = Sdl.SDLK_y;
+    public const int KEY_Z = Sdl.SDLK_z;
 
     public Sdl.SDL_Color Red { get; set; }
     public Sdl.SDL_Color White { get; set; }
@@ -78,7 +105,7 @@ class Hardware
             enemy.Height);
         Sdl.SDL_Rect target = new Sdl.SDL_Rect(enemy.X, enemy.Y,
             enemy.Width, enemy.Height);
-        Sdl.SDL_BlitSurface(enemy.enemy.ImagePtr, ref source, screen, ref target);
+        Sdl.SDL_BlitSurface(enemy.EnemyImage.ImagePtr, ref source, screen, ref target);
     }
 
     // Draws a sprite from a sprite sheet in the specified X and Y position of the screen

@@ -7,10 +7,12 @@ using Tao.Sdl;
 
 class MenuScreen : Screen
 {
-    public Image background { get; set; }
+    private Image background;
+    private Image controls;
     protected Font font;
     private List<IntPtr> optionsRed;
     private List<IntPtr> optionsWhite;
+    private IntPtr pressEnter;
     public int ActualOption { get; set; }
     private bool exit;
     public int StartRound { get; set; }
@@ -19,9 +21,11 @@ class MenuScreen : Screen
     public MenuScreen(Hardware hardware) : base(hardware)
     {
         background = new Image("imgs/others/menuBackground.png", 1280, 720);
+        controls = new Image("imgs/others/controls.png", 500, 340);
         font = new Font("fonts/PermanentMarker-Regular.ttf", 60);
         optionsRed = new List<IntPtr>();
         optionsWhite = new List<IntPtr>();
+        pressEnter = new IntPtr();
         initialiceOptions();
         exit = false;
         StartRound = 0;
@@ -31,11 +35,14 @@ class MenuScreen : Screen
     {
         bool isOptionSelected = false;
         background.MoveTo(0, 0);
-
+        controls.MoveTo(
+            (short)(GameController.SCREEN_WIDTH - controls.ImageWidth - 10),
+            (short)((GameController.SCREEN_HEIGHT / 2) - (controls.ImageHeight / 2)));
         do
         {
             hardware.ClearScreen();
             hardware.DrawImage(background);
+            hardware.DrawImage(controls);
 
             for (int option = 0; option < amountOfOptions; option++)
             {
@@ -46,6 +53,10 @@ class MenuScreen : Screen
                     hardware.WriteText(
                         optionsRed[option], 40, (short)(100 * option));
             }
+
+            hardware.WriteText(
+                pressEnter, (short)(GameController.SCREEN_WIDTH - 600),
+                (short)(GameController.SCREEN_HEIGHT - 100));
             hardware.UpdateScreen();
             isOptionSelected = CheckInput();
 
@@ -72,12 +83,17 @@ class MenuScreen : Screen
         foreach (string option in options)
             optionsWhite.Add(SdlTtf.TTF_RenderText_Solid(
                 font.GetFontType(), option, hardware.White));
+
+        pressEnter = SdlTtf.TTF_RenderText_Solid(
+                new Font("fonts/PermanentMarker-Regular.ttf", 30).GetFontType(),
+                "PRESS ENTER TO SELECT AN OPTION",
+                hardware.White);
     }
 
     public void ManageMenu()
     {
         GameScreen game;
-        HighscoreScreen highScores = new HighscoreScreen(hardware);
+        HighscoreScreen highScores;
 
         switch (ActualOption)
         {
@@ -96,7 +112,8 @@ class MenuScreen : Screen
                 game.Show();
                 break;
             case 3: // See highscores.
-                highScores.Show();
+                 highScores = new HighscoreScreen(hardware);
+                 highScores.Show();
                 break;
             case 4: // Map editor.
                 // TODO: Create the map editor screen and use it here.
@@ -119,9 +136,9 @@ class MenuScreen : Screen
         bool up = false, down = false;
         bool optionSelected = (key == Hardware.KEY_ENTER);
 
-        if (key == Hardware.KEY_UP)
+        if (key == Hardware.KEY_UP || key == Hardware.KEY_W)
             up = true;
-        else if (key == Hardware.KEY_DOWN)
+        else if (key == Hardware.KEY_DOWN || key == Hardware.KEY_S)
             down = true;
 
         if (up)

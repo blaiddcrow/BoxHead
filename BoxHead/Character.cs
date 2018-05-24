@@ -17,10 +17,10 @@ class Character : MovableSprite
     public Character(double life)
     {
         Life = life;
-        Speed = 1;
+        Speed = 2;
         IsAlive = true;
         weapons = new List<Weapon>();
-        Pistol = new Image[8];
+        Pistol = new Image[36];
         initialiceImages();
         ActualImage = 0;
         Image = Pistol[ActualImage]; // TODO: Change between weapons.
@@ -34,8 +34,8 @@ class Character : MovableSprite
         for (int i = 0; i < Pistol.Length; i++)
         {
             Pistol[i] = new Image("imgs/character/pistol/pistol" + 
-                imageDegrees + ".png", 100, 100);
-            imageDegrees += 45;
+                imageDegrees + ".png", 60, 60);
+            imageDegrees += 10;
         }
 
         foreach (Image image in Pistol)
@@ -45,8 +45,8 @@ class Character : MovableSprite
             image.Y = 
                 (short)((GameController.SCREEN_HEIGHT / 2) - (Height / 2));
         }
-
     }
+
 
     private bool isBetween(double number, int min, int max)
     {
@@ -60,27 +60,16 @@ class Character : MovableSprite
 
         double deg = 
             Math.Atan2(centerY - mouseY, centerX - mouseX) * 180 / Math.PI + 180;
-        Console.WriteLine(deg);
 
-        if (isBetween(deg, 337, 359) || isBetween(deg, 0, 23))
-            ActualImage = 0;
-        else if (isBetween(deg, 22, 67))
-            ActualImage = 1;
-        else if (isBetween(deg, 67, 112))
-            ActualImage = 2;
-        else if (isBetween(deg, 122, 157))
-            ActualImage = 3;
-        else if (isBetween(deg, 157, 202))
-            ActualImage = 4;
-        else if (isBetween(deg, 202, 247))
-            ActualImage = 5;
-        else if (isBetween(deg, 247, 292))
-            ActualImage = 6;
-        else if (isBetween(deg, 292, 337))
-            ActualImage = 7;
-        else
-            ActualImage = 0;
+        for (int i = 0; i < 36; i++)
+            if (isBetween(deg, i * 10, (i + 1) * 10))
+                ActualImage = i;
 
         Image = Pistol[ActualImage];
+    }
+
+    public void Shoot(int mouseX, int mouseY)
+    {
+        // TODO: Make the logic of the shoots.
     }
 }

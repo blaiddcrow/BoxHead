@@ -41,7 +41,7 @@ class Level
     {
         foreach (Obstacle o in Obstacles)
         {
-            hardware.DrawSprite(o.Image, o.X, o.Y, 0, 0,
+            hardware.DrawSprite(o.Image, (short)(o.X - XMap), (short)(o.Y - YMap), 0, 0,
                    GameController.SCREEN_WIDTH, GameController.SCREEN_HEIGHT);
         }
     }

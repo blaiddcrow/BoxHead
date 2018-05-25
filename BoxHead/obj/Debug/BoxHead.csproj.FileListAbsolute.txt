@@ -161,3 +161,4 @@ C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\enemy\zombie80.png
 C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\enemy\zombie90.png
 C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\others\controls.png
 C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\playerScores.dat
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\effects\bullet.png

@@ -203,6 +203,9 @@
     <Content Include="imgs\character\pistol\pistol90.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="imgs\effects\bullet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="imgs\effects\explosion.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

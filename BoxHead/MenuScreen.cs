@@ -94,6 +94,7 @@ class MenuScreen : Screen
     {
         GameScreen game;
         HighscoreScreen highScores;
+        MapCreatorScreen mapEditor;
 
         switch (ActualOption)
         {
@@ -116,7 +117,8 @@ class MenuScreen : Screen
                  highScores.Show();
                 break;
             case 4: // Map editor.
-                // TODO: Create the map editor screen and use it here.
+                mapEditor = new MapCreatorScreen(hardware);
+                mapEditor.Show();
                 break;
             case 5: // Options
                 // TODO: Create the options screen and use it here.

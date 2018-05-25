@@ -97,7 +97,7 @@ class GameScreen : Screen
         do
         {
             // 1. Draw everything.
-            hardware.UpdateScreen();
+            hardware.ClearScreen();
 
             hardware.DrawSprite(level.Floor, 0, 0, level.XMap,
                 level.YMap, GameController.SCREEN_WIDTH,

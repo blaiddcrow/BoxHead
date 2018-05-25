@@ -21,7 +21,20 @@ class Hardware
     public const int KEY_SPACE = Sdl.SDLK_SPACE;
     public const int KEY_INSERT = Sdl.SDLK_INSERT;
     public const int KEY_ENTER = Sdl.SDLK_RETURN;
+    public const int KEY_TAB = Sdl.SDLK_TAB;
     public const int KEY_BACKSPACE = Sdl.SDLK_BACKSPACE;
+
+    public const int KEY_0 = Sdl.SDLK_0;
+    public const int KEY_1 = Sdl.SDLK_1;
+    public const int KEY_2 = Sdl.SDLK_2;
+    public const int KEY_3 = Sdl.SDLK_3;
+    public const int KEY_4 = Sdl.SDLK_4;
+    public const int KEY_5 = Sdl.SDLK_5;
+    public const int KEY_6 = Sdl.SDLK_6;
+    public const int KEY_7 = Sdl.SDLK_7;
+    public const int KEY_8 = Sdl.SDLK_8;
+    public const int KEY_9 = Sdl.SDLK_9;
+
     public const int KEY_A = Sdl.SDLK_a;
     public const int KEY_B = Sdl.SDLK_b;
     public const int KEY_C = Sdl.SDLK_c;
@@ -167,6 +180,13 @@ class Hardware
     public void ClearBottom()
     {
         Sdl.SDL_Rect source = new Sdl.SDL_Rect(0, GameController.SCREEN_HEIGHT, screenWidth, (short)(screenHeight - GameController.SCREEN_HEIGHT));
+        Sdl.SDL_FillRect(screen, ref source, 0);
+    }
+
+    // Clears the specified part of the screen
+    public void ClearPart(short x, short y, short w, short h)
+    {
+        Sdl.SDL_Rect source = new Sdl.SDL_Rect(x, y, w, h);
         Sdl.SDL_FillRect(screen, ref source, 0);
     }
 

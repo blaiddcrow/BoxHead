@@ -11,7 +11,7 @@ class WelcomeScreen : Screen
         
         background = new Image("imgs/others/wsBackground.png", 1280, 720);
         imgTitle = new Image("imgs/others/boxhead.png",600,300);     
-        fontTitle = new Font("fonts/PermanentMarker-Regular.ttf", 20);
+        fontTitle = new Font("fonts/PermanentMarker-Regular.ttf", 50);
     }
 
     public override void Show()
@@ -29,10 +29,10 @@ class WelcomeScreen : Screen
                 , GameController.SCREEN_WIDTH,
                 GameController.SCREEN_HEIGHT);
             hardware.WriteText("Press SPACE to continue",
-                (GameController.SCREEN_WIDTH/2)-150,contText,170,0,0,fontTitle);
+                (GameController.SCREEN_WIDTH/2)-300,contText,170,0,0,fontTitle);
             hardware.UpdateScreen();
 
-            if (contText<(GameController.SCREEN_HEIGHT/2)+100)
+            if (contText<(GameController.SCREEN_HEIGHT/2)+250)
                 contText++;
             
         }

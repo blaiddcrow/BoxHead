@@ -148,7 +148,6 @@ class MenuScreen : Screen
                 ActualOption = optionsRed.Count - 1;
             else
                 ActualOption--;
-
         if (down)
             if (ActualOption == optionsRed.Count - 1)
                 ActualOption = 0;

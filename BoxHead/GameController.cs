@@ -25,6 +25,6 @@ class GameController
             hardware.ClearScreen();
             credits.Show();
         }
-        while (!welcome.GetExit() && !menu.GetExit());
+        while (!menu.GetExit());
     }
 }

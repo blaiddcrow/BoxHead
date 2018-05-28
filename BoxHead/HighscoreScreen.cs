@@ -86,12 +86,22 @@ class HighscoreScreen : Screen
                     bool isParsed = int.TryParse(parts[1], out points);
 
                     if (isParsed)
+                    {
                         if (oldPlayers.ContainsKey(name))
+                        {
                             while (enumerator.MoveNext())
+                            {
                                 if ((string)enumerator.Key == name)
+                                {
                                     oldPlayers[name] = points;
+                                }
+                            }
+                        }
                         else
+                        {
                             oldPlayers.Add(parts[0].ToLower(), points);
+                        }
+                    }
                 }
             }
             while (line != null);

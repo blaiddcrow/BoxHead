@@ -9,6 +9,7 @@
  * this class.
  */
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -75,32 +76,58 @@ class Level
     {
         if (File.Exists(ActualLevel))
         {
-            string[] lines = File.ReadAllLines(ActualLevel);
-            for (int i = 0; i < lines.Length; i++)
+            try
             {
-                string[] blockData = lines[i].Split(';');
-
-                string obstacleType = blockData[0].ToLower();
-                short obstacleX = short.Parse(blockData[1]);
-                short obstacleY = short.Parse(blockData[2]);
-
-                switch (blockData[0].ToLower())
+                StreamReader input = new StreamReader(ActualLevel);
+                string line;
+                do
                 {
-                    case "w": // Wall block.
-                        Obstacles.Add(new Wall(obstacleX, obstacleY));
-                        break;
-                    case "b": // Barrel.
-                        Obstacles.Add(new Barrel(obstacleX, obstacleY));
-                        break;
-                    case "m": // Mine.
-                        Obstacles.Add(new Mine(obstacleX, obstacleY));
-                        break;
-                    case "s": // Spawn point.
-                        Obstacles.Add(new SpawnPoint(obstacleX, obstacleY));
-                        break;
-                    default:
-                        break;
-                }
+                    line = input.ReadLine();
+                    if (line != null)
+                    {
+                        string[] blockData = line.Split(';');
+
+                        string obstacleType = blockData[0].ToLower();
+                        short obstacleX = short.Parse(blockData[1]);
+                        short obstacleY = short.Parse(blockData[2]);
+
+                        switch (blockData[0].ToLower())
+                        {
+                            case "w": // Wall block.
+                                Obstacles.Add(new Wall(obstacleX, obstacleY));
+                                break;
+                            case "b": // Barrel.
+                                Obstacles.Add(new Barrel(obstacleX, obstacleY));
+                                break;
+                            case "m": // Mine.
+                                Obstacles.Add(new Mine(obstacleX, obstacleY));
+                                break;
+                            case "s": // Spawn point.
+                                Obstacles.Add(new SpawnPoint(obstacleX, obstacleY));
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+                } while (line != null);
+                input.Close();
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("File not found!");
+            }
+            catch (PathTooLongException)
+            {
+                Console.WriteLine("Path too long exception!");
+            }
+            catch (IOException)
+            {
+                Console.WriteLine("Input/Output exception!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERROR: " + e.Message);
             }
         }
     }

@@ -113,7 +113,7 @@ class MapCreatorScreen : Screen
         {
             int actualLevel = lastLevel + 1;
 
-            if (File.Exists("./levels"))
+            if (Directory.Exists("./levels"))
             {
                 try
                 {
@@ -164,7 +164,7 @@ class MapCreatorScreen : Screen
 
     private int getLastLevel()
     {
-        if (File.Exists("./levels"))
+        if (Directory.Exists("./levels"))
         {
             string[] fileList;
             fileList = Directory.GetFiles("./levels");

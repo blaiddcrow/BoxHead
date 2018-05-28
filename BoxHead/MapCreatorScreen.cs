@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Tao.Sdl;
 
 class MapCreatorScreen : Screen
@@ -102,6 +103,88 @@ class MapCreatorScreen : Screen
                 selectedImage = 3;
         }
         while (!isFinished());
+        saveMap();
+    }
+
+    private void saveMap()
+    {
+        int lastLevel = getLastLevel();
+        if (lastLevel != -1)
+        {
+            int actualLevel = lastLevel + 1;
+
+            if (File.Exists("./levels"))
+            {
+                try
+                {
+                    string savePath = "./levels/level" + actualLevel + ".txt";
+                    StreamWriter output = new StreamWriter(savePath);
+
+                    foreach (Obstacle o in newObstacles)
+                    {
+                        char type = getTypeOfObstacle(o);
+                        if (type != '1')
+                            output.WriteLine(type + ";" + o.X + ";" + o.Y);
+                    }
+                    output.Close();
+                }
+                catch (FileNotFoundException)
+                {
+                    Console.WriteLine("File not found!");
+                }
+                catch (PathTooLongException)
+                {
+                    Console.WriteLine("Path too long exception!");
+                }
+                catch (IOException)
+                {
+                    Console.WriteLine("Input/Output exception!");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("ERROR: " + e.Message);
+                }
+            }
+        }
+    }
+
+    private char getTypeOfObstacle(Obstacle o)
+    {
+        if (o.GetType() == new Wall(0, 0).GetType())
+            return 'w';
+        else if (o.GetType() == new Barrel(0, 0).GetType())
+            return 'b';
+        else if (o.GetType() == new Mine(0, 0).GetType())
+            return 'm';
+        else if (o.GetType() == new SpawnPoint(0, 0).GetType())
+            return 's';
+
+        return '1';
+    }
+
+    private int getLastLevel()
+    {
+        if (File.Exists("./levels"))
+        {
+            string[] fileList;
+            fileList = Directory.GetFiles("./levels");
+
+            int maxLevel = 1;
+            int fileLevel;
+            foreach (string file in fileList)
+            {
+                if (file.StartsWith("level"))
+                {
+                    fileLevel = int.Parse(file.Substring(
+                        file.LastIndexOf('l'), file.LastIndexOf('.')));
+
+                    if (fileLevel > maxLevel)
+                        maxLevel = fileLevel;
+                }
+            }
+            return maxLevel;
+        }
+        return -1;
     }
 
     private void addObstacle()

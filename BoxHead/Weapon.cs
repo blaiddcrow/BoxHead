@@ -1,4 +1,4 @@
-﻿abstract class Weapon : Sprite
+﻿abstract class Weapon : StaticSprite
 {
     public Bullet Bullet { get; set; } 
     public int MaxAmountOfAmmo { get; }

@@ -17,10 +17,12 @@ class GameController
         MenuScreen menu = new MenuScreen(hardware);
         CreditsScreen credits = new CreditsScreen(hardware);
 
+        hardware.ClearScreen();
+        welcome.Show();
+
         do
         {
             hardware.ClearScreen();
-            welcome.Show();
             menu.Show();
             hardware.ClearScreen();
             credits.Show();

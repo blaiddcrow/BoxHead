@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AmmoPack.cs" />
     <Compile Include="Barrel.cs" />
     <Compile Include="BoxHead.cs" />
     <Compile Include="Bullet.cs" />
@@ -60,11 +61,13 @@
     <Compile Include="Font.cs" />
     <Compile Include="GameController.cs" />
     <Compile Include="GameScreen.cs" />
+    <Compile Include="GrenadePack.cs" />
     <Compile Include="Hardware.cs" />
     <Compile Include="HealthPack.cs" />
     <Compile Include="HighscoreScreen.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="Item.cs" />
+    <Compile Include="ItemGenerator.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="MapCreatorScreen.cs" />
     <Compile Include="MenuScreen.cs" />
@@ -320,6 +323,9 @@
     <Content Include="imgs\obstacles\spawnpoint.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="imgs\others\barrel-map.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="imgs\others\boxhead.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -345,6 +351,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="imgs\others\menuBackground.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imgs\others\spawnpoint-map.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imgs\others\wall-map.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="imgs\others\wsBackground.png">

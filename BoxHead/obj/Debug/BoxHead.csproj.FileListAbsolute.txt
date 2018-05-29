@@ -162,3 +162,6 @@ C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\enemy\zombie90.png
 C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\others\controls.png
 C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\playerScores.dat
 C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\effects\bullet.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\others\barrel-map.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\others\spawnpoint-map.png
+C:\Users\BlaiddCrow\Documents\BoxHead\BoxHead\bin\Debug\imgs\others\wall-map.png

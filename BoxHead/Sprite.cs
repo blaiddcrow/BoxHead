@@ -11,6 +11,8 @@ class Sprite
     *     new Image("imgs/gauntlet_spritesheet.png", 2385, 768);
    */
 
+    public Image Image { get; set; }
+
     public short X { get; set; }
     public short Y { get; set; }
     public short SpriteX { get; set; }

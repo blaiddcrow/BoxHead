@@ -21,6 +21,7 @@ class Level
     public List<Obstacle> Obstacles { get; }
     public List<HealthPack> Healthpacks { get; }
     public List<Enemy> Enemies { get; }
+    public List<Item> Items { get; set; }
 
     public Image Floor { get; set; }
     public short Width { get; set; }
@@ -34,6 +35,7 @@ class Level
         Obstacles = new List<Obstacle>();
         Healthpacks = new List<HealthPack>();
         Enemies = new List<Enemy>();
+        Items = new List<Item>();
         Floor = new Image("imgs/others/floor.png", 1280, 720);
         XMap = YMap = 0;
     }

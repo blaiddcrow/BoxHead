@@ -4,9 +4,9 @@ class HealthPack : Item
 {
     public int Health { get; }
 
-    public HealthPack()
+    public HealthPack(short x, short y) 
+        : base(new Image("img/items/healthpack.png", 60, 40), x, y)
     {
-        Random r = new Random();
-        Health = r.Next(50, 100);
+        Health = rdn.Next(50, 100);
     }
 }

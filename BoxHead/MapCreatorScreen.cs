@@ -15,6 +15,8 @@ class MapCreatorScreen : Screen
     private Image spawn;
     private Image barrel;
 
+    private Image mapWall, mapSpawn, mapBarrel;
+
     private IntPtr helpText;
     private IntPtr finishText;
 
@@ -32,6 +34,11 @@ class MapCreatorScreen : Screen
         wall = new Image("imgs/obstacles/wall.png", 40, 40);
         spawn = new Image("imgs/obstacles/spawnpoint.png", 50, 50);
         barrel = new Image("imgs/obstacles/barrel.png", 36, 36);
+
+        mapWall = new Image("imgs/others/wall-map.png", 20, 20);
+        mapSpawn = new Image("imgs/others/spawnpoint-map.png", 25, 25);
+        mapBarrel = new Image("imgs/others/barrel-map.png", 18, 18);
+        
         helpText = new IntPtr();
         nums = new IntPtr[3];
         initialiceTexts();
@@ -128,8 +135,7 @@ class MapCreatorScreen : Screen
                     foreach (Obstacle o in newObstacles)
                     {
                         char type = getTypeOfObstacle(o);
-                        if (type != '1')
-                            output.WriteLine(
+                        output.WriteLine(
                                 type + ";" + (o.X * 2) + ";" + (o.Y * 2));
                     }
                     output.Close();
@@ -156,16 +162,7 @@ class MapCreatorScreen : Screen
 
     private char getTypeOfObstacle(Obstacle o)
     {
-        if (o.GetType() == new Wall(0, 0).GetType())
-            return 'w';
-        else if (o.GetType() == new Barrel(0, 0).GetType())
-            return 'b';
-        else if (o.GetType() == new Mine(0, 0).GetType())
-            return 'm';
-        else if (o.GetType() == new SpawnPoint(0, 0).GetType())
-            return 's';
-
-        return '1';
+        return Convert.ToChar(o.ToString().Split(';')[0]);
     }
 
     private int getLastLevel()
@@ -199,15 +196,21 @@ class MapCreatorScreen : Screen
         {
             case 1:
                 newObstacles.Add(
-                    new Wall((short)(mouseClickX), (short)(mouseClickY)));
+                    new Wall(mapWall, 
+                    (short)(mouseClickX), 
+                    (short)(mouseClickY)));
                 break;
             case 2:
                 newObstacles.Add(
-                    new SpawnPoint((short)(mouseClickX), (short)(mouseClickY)));
+                    new SpawnPoint(mapSpawn, 
+                    (short)(mouseClickX), 
+                    (short)(mouseClickY)));
                 break;
             case 3:
                 newObstacles.Add(
-                    new Barrel((short)(mouseClickX), (short)(mouseClickY)));
+                    new Barrel(mapBarrel, 
+                    (short)(mouseClickX), 
+                    (short)(mouseClickY)));
                 break;
             default:
                 break;

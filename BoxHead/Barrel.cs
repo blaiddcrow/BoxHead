@@ -9,4 +9,13 @@
         Resistance = 150;
         Damage = 75.5f;
     }
+
+    public Barrel(Image image, short x, short y) : base(image, x, y)
+    {
+    }
+
+    public override string ToString()
+    {
+        return "b;" + base.ToString();
+    }
 }

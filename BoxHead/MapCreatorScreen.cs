@@ -10,6 +10,13 @@ using Tao.Sdl;
 
 class MapCreatorScreen : Screen
 {
+    public struct LogError
+    {
+        public DateTime date;
+        public string type;
+        public string description;
+    }
+
     private Image background;
     private Image wall;
     private Image spawn;
@@ -140,21 +147,37 @@ class MapCreatorScreen : Screen
                     }
                     output.Close();
                 }
-                catch (FileNotFoundException)
+                catch (FileNotFoundException e)
                 {
-                    Console.WriteLine("File not found!");
+                    LogError error;
+                    error.date = DateTime.Now;
+                    error.type = "File not found";
+                    error.description = e.Message;
+                    saveErrorLog(error);
                 }
-                catch (PathTooLongException)
+                catch (PathTooLongException e)
                 {
-                    Console.WriteLine("Path too long exception!");
+                    LogError error;
+                    error.date = DateTime.Now;
+                    error.type = "Path too long exception";
+                    error.description = e.Message;
+                    saveErrorLog(error);
                 }
-                catch (IOException)
+                catch (IOException e)
                 {
-                    Console.WriteLine("Input/Output exception!");
+                    LogError error;
+                    error.date = DateTime.Now;
+                    error.type = "IO Exception";
+                    error.description = e.Message;
+                    saveErrorLog(error);
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("ERROR: " + e.Message);
+                    LogError error;
+                    error.date = DateTime.Now;
+                    error.type = "Unknown error";
+                    error.description = e.Message;
+                    saveErrorLog(error);
                 }
             }
         }
@@ -215,6 +238,13 @@ class MapCreatorScreen : Screen
             default:
                 break;
         }
+    }
+
+    private void saveErrorLog(LogError log)
+    {
+        string errorLine = log.date.ToString("dd-MM-yyyy - hh:mm: ") +
+            log.type + ": " + log.description;
+        File.AppendAllText("errorLog.log", errorLine);
     }
 
     private bool isFinished()

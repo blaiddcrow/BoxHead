@@ -47,6 +47,11 @@ class GameScreen : Screen
         updateTexts();
     }
 
+    public GameScreen(Hardware hardware, Level level) : this(hardware)
+    {
+        this.level = level;
+    }
+
     public GameScreen(Hardware hardware, int round) : this(hardware)
     {
         Round = round;

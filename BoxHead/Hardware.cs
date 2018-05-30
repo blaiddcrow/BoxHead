@@ -65,6 +65,8 @@ class Hardware
     public Sdl.SDL_Color Red { get; set; }
     public Sdl.SDL_Color White { get; set; }
 
+    public IntPtr[] TextNums { get; set; }
+
     short screenWidth;
     short screenHeight;
     short colorDepth;
@@ -84,6 +86,15 @@ class Hardware
 
         Red = new Sdl.SDL_Color(255, 0, 0);
         White = new Sdl.SDL_Color(255, 255, 255);
+
+        TextNums = new IntPtr[10];
+
+        for (int i = 0; i < TextNums.Length; i++)
+        {
+            TextNums[i] = SdlTtf.TTF_RenderText_Solid(
+                new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
+                i.ToString(), Red);
+        }
 
         int flags = Sdl.SDL_HWSURFACE | Sdl.SDL_DOUBLEBUF | Sdl.SDL_ANYFORMAT;
         if (fullScreen)

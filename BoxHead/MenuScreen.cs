@@ -95,6 +95,7 @@ class MenuScreen : Screen
         GameScreen game;
         HighscoreScreen highScores;
         MapCreatorScreen mapEditor;
+        MapSelectionScreen mapSelector;
 
         switch (ActualOption)
         {
@@ -109,7 +110,9 @@ class MenuScreen : Screen
                 break;
             case 2: // Select start round.
                 // TODO: Ask the user for the start round.
-                game = new GameScreen(hardware, StartRound);
+                mapSelector = new MapSelectionScreen(hardware);
+                mapSelector.Show();
+                game = new GameScreen(hardware, mapSelector.GetLevel());
                 game.Show();
                 break;
             case 3: // See highscores.

@@ -70,6 +70,7 @@
     <Compile Include="ItemGenerator.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="MapCreatorScreen.cs" />
+    <Compile Include="MapSelectionScreen.cs" />
     <Compile Include="MenuScreen.cs" />
     <Compile Include="Mine.cs" />
     <Compile Include="MovableSprite.cs" />

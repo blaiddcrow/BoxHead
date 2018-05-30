@@ -5,9 +5,19 @@
  * structure to manage them.
  */
 
+using System;
+using System.Diagnostics;
+using Tao.Sdl;
+
 class GameScreen : Screen
 {
     protected EnemyGenerator enemyGenerator;
+    protected ItemGenerator itemGenerator;
+    private IntPtr roundText;
+    private IntPtr lifeText;
+    private IntPtr timePlayedText;
+    private IntPtr ammoText;
+    private IntPtr grenadesText;
     protected Enemy enemy; // Test enemy.
     protected Level level;
     public Character Character { get; set; }
@@ -15,12 +25,14 @@ class GameScreen : Screen
     private int mouseX, mouseY;
     private int mouseClickX, mouseClickY;
     public int Round { get; set; }
+    private Stopwatch stopwatch;
 
     public static int Points;
 
     public GameScreen(Hardware hardware) : base(hardware)
     {
         font = new Font("fonts/PermanentMarker-Regular.ttf", 20);
+  
         level = new Level();
         level.ActualLevel = "levels/level1.txt";
         level.Load();
@@ -29,11 +41,56 @@ class GameScreen : Screen
         enemyGenerator = new EnemyGenerator(hardware);
         enemy = new Enemy(100, 25, 1); // Test enemy.
         Points = Character.Points;
+        stopwatch = new Stopwatch();
+        roundText = lifeText = timePlayedText =
+            ammoText = grenadesText = new IntPtr();
+        updateTexts();
     }
 
     public GameScreen(Hardware hardware, int round) : this(hardware)
     {
         Round = round;
+    }
+
+    private void updateTexts()
+    {
+        roundText = SdlTtf.TTF_RenderText_Solid(
+                new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
+                "ROUND: "+ Round, hardware.Red);
+        lifeText = SdlTtf.TTF_RenderText_Solid(
+                new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
+                "LIFE: " + Character.Life, hardware.Red);
+        ammoText = SdlTtf.TTF_RenderText_Solid(
+                new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
+                "AMMO: " + Character.weapons[Character.ActualWeapon].Ammo,
+                hardware.Red);
+        grenadesText = SdlTtf.TTF_RenderText_Solid(
+                new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
+                "GRENADES: " + Character.AmountOfgrenades, hardware.Red);  
+        timePlayedText = SdlTtf.TTF_RenderText_Solid(
+                new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
+                "TIME PLAYED: " + getPlatedTime() ,hardware.Red);
+    }
+
+    private string getPlatedTime()
+    {
+        TimeSpan ts = stopwatch.Elapsed;
+        return String.Format(
+            "{0:00}:{1:00}", ts.Minutes, ts.Seconds);
+    }
+
+    private void drawHud()
+    {
+        hardware.WriteText(
+                    roundText, GameController.SCREEN_WIDTH / 2 - 50, 10);
+        hardware.WriteText(
+                    lifeText, 10, GameController.SCREEN_HEIGHT - 30);
+        hardware.WriteText(timePlayedText, GameController.SCREEN_WIDTH / 2 - 70,
+            GameController.SCREEN_HEIGHT - 30);
+        hardware.WriteText(ammoText, GameController.SCREEN_WIDTH - 150,
+           GameController.SCREEN_HEIGHT - 60);
+        hardware.WriteText(grenadesText, GameController.SCREEN_WIDTH - 150,
+           GameController.SCREEN_HEIGHT - 30);
     }
 
     private void moveCharacter()
@@ -80,6 +137,8 @@ class GameScreen : Screen
 
     public override void Show()
     {
+        stopwatch.Start();
+
         short centeredCharacterX =
             (short)((GameController.SCREEN_WIDTH / 2) - (Character.Width / 2));
         short centeredCharacterY =
@@ -111,7 +170,7 @@ class GameScreen : Screen
             {
                 hardware.DrawImage(enemy.EnemyImage);
             }
-
+            drawHud();
             hardware.UpdateScreen();
             // 2. Move character from keyboard input.
             oldX = Character.X;
@@ -133,8 +192,11 @@ class GameScreen : Screen
             // 4. Check collisions and update game state.
             if (enemy.CharacterIsOnRange(Character))
                 enemy.Attack(Character);
+
+            updateTexts();
         }
         while (Character.Life > 0 && !hardware.IsKeyPressed(Hardware.KEY_ESC));
+        stopwatch.Reset();
     }
 
     public Character GetCharacter()

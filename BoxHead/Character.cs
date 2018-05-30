@@ -7,6 +7,8 @@ class Character : MovableSprite
     public double Life { get; set; }
     public bool IsAlive { get; set; }
     public List<Weapon> weapons { get; }
+    public int ActualWeapon { get; set; }
+    public int AmountOfgrenades { get; set; }
     public int Points { get; set; }
     public int ActualImage { get; set; }
     public Image Image { get; set; }
@@ -20,9 +22,12 @@ class Character : MovableSprite
         Speed = 2;
         IsAlive = true;
         weapons = new List<Weapon>();
+        weapons.Add(new Pistol(new Bullet(25.5f), 20));
+        ActualWeapon = 0;
         Pistol = new Image[36];
         initialiceImages();
         ActualImage = 0;
+        AmountOfgrenades = 3;
         Image = Pistol[ActualImage]; // TODO: Change between weapons.
         Points = 0;
     }

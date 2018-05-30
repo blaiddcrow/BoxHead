@@ -199,10 +199,11 @@ class MapCreatorScreen : Screen
             int fileLevel;
             foreach (string file in fileList)
             {
-                if (file.StartsWith("level"))
+                if (file.StartsWith("./levels\\level"))
                 {
-                    fileLevel = int.Parse(file.Substring(
-                        file.LastIndexOf('l'), file.LastIndexOf('.')));
+                    int amountOfDigits = file.LastIndexOf('.') - 1 - file.LastIndexOf('l');
+                    string level = file.Substring(file.LastIndexOf('l') + 1, amountOfDigits);
+                    fileLevel = int.Parse(level);
 
                     if (fileLevel > maxLevel)
                         maxLevel = fileLevel;

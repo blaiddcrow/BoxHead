@@ -1,4 +1,8 @@
-﻿
+﻿/*
+ * V.0.0.12 29/05/2018 - Javier Saorín Vidal: Added methods to fill a list of 
+ * items with random items.
+ */
+
 using System;
 using System.Collections.Generic;
 

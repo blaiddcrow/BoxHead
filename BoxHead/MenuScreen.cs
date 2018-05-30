@@ -70,7 +70,7 @@ class MenuScreen : Screen
     {
         string[] options =
         {
-            "Start a new game.", "Continue game.", "Select start round.",
+            "Start a new game.", "Continue game.", "Select map.",
             "See highscores.", "Map editor.", "Options.", "Quit the game."
         };
 

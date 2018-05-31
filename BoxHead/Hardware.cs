@@ -66,7 +66,7 @@ class Hardware
     public Sdl.SDL_Color White { get; set; }
 
     public IntPtr[] TextNums { get; set; }
-
+    public IntPtr TextColon { get; set; }
     short screenWidth;
     short screenHeight;
     short colorDepth;
@@ -88,13 +88,7 @@ class Hardware
         White = new Sdl.SDL_Color(255, 255, 255);
 
         TextNums = new IntPtr[10];
-
-        for (int i = 0; i < TextNums.Length; i++)
-        {
-            TextNums[i] = SdlTtf.TTF_RenderText_Solid(
-                new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
-                i.ToString(), Red);
-        }
+        TextColon = new IntPtr();
 
         int flags = Sdl.SDL_HWSURFACE | Sdl.SDL_DOUBLEBUF | Sdl.SDL_ANYFORMAT;
         if (fullScreen)
@@ -106,6 +100,20 @@ class Hardware
         Sdl.SDL_SetClipRect(screen, ref rect);
 
         SdlTtf.TTF_Init();
+    }
+
+    public void InitialiceTexts()
+    {
+        for (int i = 0; i < TextNums.Length; i++)
+        {
+            TextNums[i] = SdlTtf.TTF_RenderText_Solid(
+                new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
+                i.ToString(), Red);
+        }
+
+        TextColon = SdlTtf.TTF_RenderText_Solid(
+                new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
+                ":", Red);
     }
 
     ~Hardware()
@@ -221,6 +229,20 @@ class Hardware
         Sdl.SDL_Rect src = new Sdl.SDL_Rect(0, 0, screenWidth, screenHeight);
         Sdl.SDL_Rect dest = new Sdl.SDL_Rect(x, y, screenWidth, screenHeight);
         Sdl.SDL_BlitSurface(textAsImage, ref src, screen, ref dest);
+    }
+
+    public void WriteText(string text, short xPosition, short yPosition)
+    {
+        for (int i = 0; i < text.Length; i++)
+        {
+            if (text[i] == ':')
+                WriteText(TextColon, (short)(xPosition * (i + 1)), yPosition);
+            else
+            {
+                int numPosition = int.Parse(text[i].ToString());
+                WriteText(TextNums[numPosition],(short)(xPosition + (10 * i + 1)), yPosition);
+            }
+        }
     }
 
     // Writes a line in the specified coordinates, with the specified color and alpha

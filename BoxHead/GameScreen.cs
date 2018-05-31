@@ -13,11 +13,16 @@ class GameScreen : Screen
 {
     protected EnemyGenerator enemyGenerator;
     protected ItemGenerator itemGenerator;
-    private IntPtr roundText;
-    private IntPtr lifeText;
-    private IntPtr timePlayedText;
-    private IntPtr ammoText;
-    private IntPtr grenadesText;
+    private IntPtr roundTextEnglish;
+    private IntPtr lifeTextEnglish;
+    private IntPtr timePlayedTextEnglish;
+    private IntPtr ammoTextEnglish;
+    private IntPtr grenadesTextEnglish;
+    private IntPtr roundTextSpanish;
+    private IntPtr lifeTextSpanish;
+    private IntPtr timePlayedTextSpanish;
+    private IntPtr ammoTextSpanish;
+    private IntPtr grenadesTextSpanish;
     protected Enemy enemy; // Test enemy.
     protected Level level;
     public Character Character { get; set; }
@@ -29,7 +34,8 @@ class GameScreen : Screen
 
     public static int Points;
 
-    public GameScreen(Hardware hardware) : base(hardware)
+    public GameScreen(Hardware hardware, GameController languageController)
+        : base(hardware, languageController)
     {
         font = new Font("fonts/PermanentMarker-Regular.ttf", 20);
   
@@ -42,39 +48,60 @@ class GameScreen : Screen
         enemy = new Enemy(100, 25, 1); // Test enemy.
         Points = Character.Points;
         stopwatch = new Stopwatch();
-        roundText = lifeText = timePlayedText =
-            ammoText = grenadesText = new IntPtr();
-        updateTexts();
+        roundTextEnglish = lifeTextEnglish = timePlayedTextEnglish =
+            ammoTextEnglish = grenadesTextEnglish = new IntPtr();
+        roundTextSpanish = lifeTextSpanish = timePlayedTextSpanish =
+            ammoTextSpanish = grenadesTextSpanish = new IntPtr();
+        initialiceTexts();
     }
 
-    public GameScreen(Hardware hardware, Level level) : this(hardware)
+    public GameScreen(Hardware hardware, Level level, GameController languageController)
+        : this(hardware, languageController)
     {
         this.level = level;
     }
 
-    public GameScreen(Hardware hardware, int round) : this(hardware)
+    public GameScreen(Hardware hardware, int round, GameController languageController)
+        : this(hardware, languageController)
     {
         Round = round;
     }
 
-    private void updateTexts()
+    private void initialiceTexts()
     {
-        roundText = SdlTtf.TTF_RenderText_Solid(
+        roundTextEnglish = SdlTtf.TTF_RenderText_Solid(
                 new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
-                "ROUND: "+ Round, hardware.Red);
-        lifeText = SdlTtf.TTF_RenderText_Solid(
+                "ROUND: ", hardware.Red);
+        lifeTextEnglish = SdlTtf.TTF_RenderText_Solid(
                 new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
-                "LIFE: " + Character.Life, hardware.Red);
-        ammoText = SdlTtf.TTF_RenderText_Solid(
+                "LIFE: ", hardware.Red);
+        ammoTextEnglish = SdlTtf.TTF_RenderText_Solid(
                 new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
-                "AMMO: " + Character.weapons[Character.ActualWeapon].Ammo,
-                hardware.Red);
-        grenadesText = SdlTtf.TTF_RenderText_Solid(
+                "AMMO: ", hardware.Red);
+        grenadesTextEnglish = SdlTtf.TTF_RenderText_Solid(
                 new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
-                "GRENADES: " + Character.AmountOfgrenades, hardware.Red);  
-        timePlayedText = SdlTtf.TTF_RenderText_Solid(
+                "GRENADES: ", hardware.Red);  
+        timePlayedTextEnglish = SdlTtf.TTF_RenderText_Solid(
                 new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
-                "TIME PLAYED: " + getPlatedTime() ,hardware.Red);
+                "TIME PLAYED: ", hardware.Red);
+
+        roundTextSpanish = SdlTtf.TTF_RenderText_Solid(
+                new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
+                "RONDA: ", hardware.Red);
+        lifeTextSpanish = SdlTtf.TTF_RenderText_Solid(
+                new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
+                "VIDA: ", hardware.Red);
+        ammoTextSpanish = SdlTtf.TTF_RenderText_Solid(
+                new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
+                "MUNICIÓN: ", hardware.Red);
+        grenadesTextSpanish = SdlTtf.TTF_RenderText_Solid(
+                new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
+                "GRENADAS: ", hardware.Red);
+        timePlayedTextSpanish = SdlTtf.TTF_RenderText_Solid(
+                new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
+                "TIEMPO JUGADO: ", hardware.Red);
+
+        hardware.InitialiceTexts();
     }
 
     private string getPlatedTime()
@@ -86,16 +113,60 @@ class GameScreen : Screen
 
     private void drawHud()
     {
-        hardware.WriteText(
-                    roundText, GameController.SCREEN_WIDTH / 2 - 50, 10);
-        hardware.WriteText(
-                    lifeText, 10, GameController.SCREEN_HEIGHT - 30);
-        hardware.WriteText(timePlayedText, GameController.SCREEN_WIDTH / 2 - 70,
-            GameController.SCREEN_HEIGHT - 30);
-        hardware.WriteText(ammoText, GameController.SCREEN_WIDTH - 150,
-           GameController.SCREEN_HEIGHT - 60);
-        hardware.WriteText(grenadesText, GameController.SCREEN_WIDTH - 150,
-           GameController.SCREEN_HEIGHT - 30);
+        if (languageController.isInSpanish)
+        {
+            hardware.WriteText(
+                roundTextSpanish, GameController.SCREEN_WIDTH / 2 - 50, 10);
+            hardware.WriteText(
+                Round.ToString(), GameController.SCREEN_WIDTH / 2 + 50, 10);
+
+            hardware.WriteText(
+                lifeTextSpanish, 10, GameController.SCREEN_HEIGHT - 30);
+            hardware.WriteText(
+                Character.Life.ToString(), 70, GameController.SCREEN_HEIGHT - 30);
+
+            hardware.WriteText(timePlayedTextSpanish, GameController.SCREEN_WIDTH / 2 - 90,
+                GameController.SCREEN_HEIGHT - 30);
+            hardware.WriteText(getPlatedTime(), GameController.SCREEN_WIDTH / 2 + 100,
+                GameController.SCREEN_HEIGHT - 30);
+
+            hardware.WriteText(ammoTextSpanish, GameController.SCREEN_WIDTH - 200,
+               GameController.SCREEN_HEIGHT - 60);
+            hardware.WriteText("" + Character.weapons[Character.ActualWeapon].Ammo,
+                GameController.SCREEN_WIDTH - 50, GameController.SCREEN_HEIGHT - 60);
+
+            hardware.WriteText(grenadesTextSpanish, GameController.SCREEN_WIDTH - 200,
+               GameController.SCREEN_HEIGHT - 30);
+            hardware.WriteText("" + Character.AmountOfgrenades,
+                GameController.SCREEN_WIDTH - 25, GameController.SCREEN_HEIGHT - 30);
+        }
+        else
+        {
+            hardware.WriteText(
+                roundTextEnglish, GameController.SCREEN_WIDTH / 2 - 50, 10);
+            hardware.WriteText(
+                Round.ToString(), GameController.SCREEN_WIDTH / 2 + 50, 10);
+
+            hardware.WriteText(
+                lifeTextEnglish, 10, GameController.SCREEN_HEIGHT - 30);
+            hardware.WriteText(
+                Character.Life.ToString(), 70, GameController.SCREEN_HEIGHT - 30);
+
+            hardware.WriteText(timePlayedTextEnglish, GameController.SCREEN_WIDTH / 2 - 70,
+                GameController.SCREEN_HEIGHT - 30);
+            hardware.WriteText(getPlatedTime(), GameController.SCREEN_WIDTH / 2 + 100,
+                GameController.SCREEN_HEIGHT - 30);
+
+            hardware.WriteText(ammoTextEnglish, GameController.SCREEN_WIDTH - 150,
+               GameController.SCREEN_HEIGHT - 60);
+            hardware.WriteText("" + Character.weapons[Character.ActualWeapon].Ammo,
+                GameController.SCREEN_WIDTH - 50, GameController.SCREEN_HEIGHT - 60);
+
+            hardware.WriteText(grenadesTextEnglish, GameController.SCREEN_WIDTH - 150,
+               GameController.SCREEN_HEIGHT - 30);
+            hardware.WriteText("" + Character.AmountOfgrenades,
+                GameController.SCREEN_WIDTH - 25, GameController.SCREEN_HEIGHT - 30);
+        }
     }
 
     private void moveCharacter()
@@ -197,8 +268,6 @@ class GameScreen : Screen
             // 4. Check collisions and update game state.
             if (enemy.CharacterIsOnRange(Character))
                 enemy.Attack(Character);
-
-            updateTexts();
         }
         while (Character.Life > 0 && !hardware.IsKeyPressed(Hardware.KEY_ESC));
         stopwatch.Reset();

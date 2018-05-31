@@ -13,7 +13,8 @@ class HighscoreScreen : Screen
     Dictionary<string, int> oldPlayers;
     IDictionaryEnumerator enumerator;
 
-    public HighscoreScreen(Hardware hardware) : base(hardware)
+    public HighscoreScreen(Hardware hardware, GameController languageController)
+        : base(hardware, languageController)
     {
         background =
             new Image("imgs/others/menuBackground.png",

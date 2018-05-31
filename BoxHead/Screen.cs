@@ -6,10 +6,12 @@
 class Screen
 {
     protected Hardware hardware;
+    protected GameController languageController;
 
-    public Screen(Hardware hardware)
+    public Screen(Hardware hardware, GameController languageController)
     {
         this.hardware = hardware;
+        this.languageController = languageController;
     }
 
     public virtual void Show()

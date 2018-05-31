@@ -6,9 +6,9 @@ class WelcomeScreen : Screen
     public Image imgTitle { get; set; }
     public Font fontTitle { get; set; }
 
-    public WelcomeScreen(Hardware hardware) : base(hardware)
+    public WelcomeScreen(Hardware hardware, GameController languageController) 
+        : base(hardware, languageController)
     {
-        
         background = new Image("imgs/others/wsBackground.png", 1280, 720);
         imgTitle = new Image("imgs/others/boxhead.png",600,300);     
         fontTitle = new Font("fonts/PermanentMarker-Regular.ttf", 50);
@@ -28,8 +28,13 @@ class WelcomeScreen : Screen
                 (short)(GameController.SCREEN_HEIGHT-contText), 0, 0
                 , GameController.SCREEN_WIDTH,
                 GameController.SCREEN_HEIGHT);
-            hardware.WriteText("Press SPACE to continue",
-                (GameController.SCREEN_WIDTH/2)-300,contText,170,0,0,fontTitle);
+
+            if (languageController.isInSpanish)
+                hardware.WriteText("Pulsa ESPACIO para continuar",
+                (GameController.SCREEN_WIDTH / 2) - 350, contText, 170, 0, 0, fontTitle);
+            else
+                hardware.WriteText("Press SPACE to continue",
+                    (GameController.SCREEN_WIDTH/2)-300,contText,170,0,0,fontTitle);
             hardware.UpdateScreen();
 
             if (contText<(GameController.SCREEN_HEIGHT/2)+250)

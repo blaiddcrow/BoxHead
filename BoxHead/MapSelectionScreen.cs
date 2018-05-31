@@ -8,7 +8,8 @@ class MapSelectionScreen : Screen
     private Image background;
     private List<IntPtr> levelsTextRed;
     private List<IntPtr> levelsTextWhite;
-    private IntPtr pressEnter;
+    private IntPtr pressEnterEnglish;
+    private IntPtr pressEnterSpanish;
     private List<string> levelPaths;
     private string selectedLevel;
     private Font font;
@@ -16,14 +17,16 @@ class MapSelectionScreen : Screen
 
     public int ActualLevel { get; set; }
 
-    public MapSelectionScreen(Hardware hardware) : base(hardware)
+    public MapSelectionScreen(Hardware hardware, GameController languageController)
+        : base(hardware, languageController)
     {
         font = new Font("fonts/PermanentMarker-Regular.ttf", 20);
         background = new Image("imgs/others/menuBackground.png", 1280, 720);
         levelsTextRed = new List<IntPtr>();
         levelsTextWhite = new List<IntPtr>();
         levelPaths = new List<string>();
-        pressEnter = new IntPtr();
+        pressEnterEnglish = new IntPtr();
+        pressEnterSpanish= new IntPtr();
         initialiceLevelTexts();
         amountOfTexts = levelsTextRed.Count;
         ActualLevel = 0;
@@ -54,9 +57,13 @@ class MapSelectionScreen : Screen
             }
         }
 
-        pressEnter = SdlTtf.TTF_RenderText_Solid(
+        pressEnterEnglish = SdlTtf.TTF_RenderText_Solid(
         new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
         "PRESS ENTER TO SELECT A LEVEL", hardware.White);
+
+        pressEnterEnglish = SdlTtf.TTF_RenderText_Solid(
+        new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
+        "PULSA ENTER PARA SELECCIONAR UN NIVEL", hardware.White);
     }
 
     private bool CheckInput()
@@ -112,9 +119,19 @@ class MapSelectionScreen : Screen
                         levelsTextRed[level], 40, (short)(50 * level));
             }
 
-            hardware.WriteText(
-                pressEnter, (short)(GameController.SCREEN_WIDTH / 2 - 150),
-                (short)(GameController.SCREEN_HEIGHT - 30));
+            if (languageController.isInSpanish)
+            {
+                hardware.WriteText(
+                    pressEnterSpanish, (short)(GameController.SCREEN_WIDTH / 2 - 150),
+                    (short)(GameController.SCREEN_HEIGHT - 30));
+            }
+            else
+            {
+                hardware.WriteText(
+                    pressEnterEnglish, (short)(GameController.SCREEN_WIDTH / 2 - 150),
+                    (short)(GameController.SCREEN_HEIGHT - 30));
+            }
+
             hardware.UpdateScreen();
             isOptionSelected = CheckInput();
 

@@ -24,8 +24,10 @@ class MapCreatorScreen : Screen
 
     private Image mapWall, mapSpawn, mapBarrel;
 
-    private IntPtr helpText;
-    private IntPtr finishText;
+    private IntPtr helpTextEnglish;
+    private IntPtr finishTextEnglish;
+    private IntPtr helpTextSpanish;
+    private IntPtr finishTextSpanish;
 
     private IntPtr[] nums;
     private bool displayHelp;
@@ -35,7 +37,8 @@ class MapCreatorScreen : Screen
 
     private List<Obstacle> newObstacles;
 
-    public MapCreatorScreen(Hardware hardware) : base(hardware)
+    public MapCreatorScreen(Hardware hardware, GameController languageController)
+        : base(hardware, languageController)
     {
         background = new Image("imgs/others/floor.png", 1280, 720);
         wall = new Image("imgs/obstacles/wall.png", 40, 40);
@@ -46,7 +49,11 @@ class MapCreatorScreen : Screen
         mapSpawn = new Image("imgs/others/spawnpoint-map.png", 25, 25);
         mapBarrel = new Image("imgs/others/barrel-map.png", 18, 18);
         
-        helpText = new IntPtr();
+        helpTextEnglish = new IntPtr();
+        finishTextEnglish = new IntPtr();
+        helpTextSpanish = new IntPtr();
+        finishTextSpanish = new IntPtr();
+
         nums = new IntPtr[3];
         initialiceTexts();
         displayHelp = false;
@@ -81,14 +88,28 @@ class MapCreatorScreen : Screen
 
             if (!displayHelp)
             {
-                hardware.WriteText(
-                    helpText, (GameController.SCREEN_WIDTH / 2) - 50,
-                    GameController.SCREEN_HEIGHT - 50);
+                if (languageController.isInSpanish)
+                {
+                    hardware.WriteText(
+                        helpTextSpanish, (GameController.SCREEN_WIDTH / 2) - 70,
+                        GameController.SCREEN_HEIGHT - 50);
+                }
+                else
+                {
+                    hardware.WriteText(
+                        helpTextEnglish, (GameController.SCREEN_WIDTH / 2) - 50,
+                        GameController.SCREEN_HEIGHT - 50);
+                }
+                
             }
             else
             {
-                hardware.WriteText(
-                    finishText, GameController.SCREEN_WIDTH - 150, 10);
+                if (languageController.isInSpanish)
+                    hardware.WriteText(
+                        finishTextSpanish, GameController.SCREEN_WIDTH - 200, 10);
+                else
+                    hardware.WriteText(
+                        finishTextEnglish, GameController.SCREEN_WIDTH - 150, 10);
 
                 short xPos = (GameController.SCREEN_WIDTH / 2) - 50;
                 for (int i = 0; i < nums.Length; i++)
@@ -255,13 +276,21 @@ class MapCreatorScreen : Screen
 
     private void initialiceTexts()
     {
-        helpText = SdlTtf.TTF_RenderText_Solid(
+        helpTextEnglish = SdlTtf.TTF_RenderText_Solid(
                 new Font("fonts/Creepster-Regular.ttf", 20).GetFontType(),
                 "Press TAB to show help", hardware.Red);
 
-        finishText = SdlTtf.TTF_RenderText_Solid(
+        finishTextEnglish = SdlTtf.TTF_RenderText_Solid(
                 new Font("fonts/Creepster-Regular.ttf", 18).GetFontType(),
                 "Press ESC to finish", hardware.Red);
+
+        helpTextSpanish = SdlTtf.TTF_RenderText_Solid(
+                new Font("fonts/Creepster-Regular.ttf", 20).GetFontType(),
+                "Pulsa TABULADOR para mostrar la ayuda", hardware.Red);
+
+        finishTextSpanish = SdlTtf.TTF_RenderText_Solid(
+                new Font("fonts/Creepster-Regular.ttf", 18).GetFontType(),
+                "Pulsa ESC para finalizar", hardware.Red);
 
         for (int i = 1; i <= nums.Length; i++)
             nums[i-1] = SdlTtf.TTF_RenderText_Solid(

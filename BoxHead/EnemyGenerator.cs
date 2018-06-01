@@ -19,6 +19,7 @@ class EnemyGenerator
     {
         this.hardware = hardware;
         enemies = new List<Enemy>();
+        spawnPoints = new List<SpawnPoint>();
         amountOfEnemies = 0;
         random = new Random();
         level = new Level();
@@ -49,13 +50,18 @@ class EnemyGenerator
     private void initialiceSpawns()
     {
         SpawnPoint comparableSpawn = new SpawnPoint(0, 0);
+
         foreach (Obstacle obstacle in level.Obstacles)
-            if ( obstacle.GetType() == comparableSpawn.GetType() )
-                spawnPoints.Add( (SpawnPoint) obstacle );
+        {
+            string type = obstacle.ToString().Split(';')[0];
+            if (type.ToLower() == "s")
+                spawnPoints.Add((SpawnPoint)obstacle);
+        }
     }
 
-    public void StartRound(int round)
+    public void SetEnemiesSpawnpoints()
     {
+        initialiceSpawns();
         SpawnPoint randomSpawn;
         foreach (Enemy enemy in enemies)
         {

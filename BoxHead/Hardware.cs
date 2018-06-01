@@ -67,12 +67,15 @@ class Hardware
 
     public IntPtr[] TextNums { get; set; }
     public IntPtr TextColon { get; set; }
+    public IntPtr TextComma { get; set; }
     short screenWidth;
     short screenHeight;
     short colorDepth;
 
     int oldMouseX;
     int oldMouseY;
+    int oldMouseClickX;
+    int oldMouseClickY;
 
     static short startX, startY;
 
@@ -89,6 +92,7 @@ class Hardware
 
         TextNums = new IntPtr[10];
         TextColon = new IntPtr();
+        TextComma = new IntPtr();
 
         int flags = Sdl.SDL_HWSURFACE | Sdl.SDL_DOUBLEBUF | Sdl.SDL_ANYFORMAT;
         if (fullScreen)
@@ -114,6 +118,9 @@ class Hardware
         TextColon = SdlTtf.TTF_RenderText_Solid(
                 new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
                 ":", Red);
+        TextComma = SdlTtf.TTF_RenderText_Solid(
+                new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
+                ",", Red);
     }
 
     ~Hardware()
@@ -236,10 +243,13 @@ class Hardware
         for (int i = 0; i < text.Length; i++)
         {
             if (text[i] == ':')
-                WriteText(TextColon, (short)(xPosition * (i + 1)), yPosition);
+                WriteText(TextColon, (short)(xPosition + (10 * i + 1) + 3), yPosition);
+            else if (text[i] == ',')
+                WriteText(TextComma, (short)(xPosition + (10 * i + 1) + 3), yPosition);
             else
             {
-                int numPosition = int.Parse(text[i].ToString());
+                string t = text[i].ToString();
+                int numPosition = int.Parse(t);
                 WriteText(TextNums[numPosition],(short)(xPosition + (10 * i + 1)), yPosition);
             }
         }
@@ -256,6 +266,8 @@ class Hardware
     {
         mouseX = oldMouseX;
         mouseY = oldMouseY;
+        mouseClickX = oldMouseClickX;
+        mouseClickY = oldMouseClickX;
         mouseClickX = mouseClickY = -1;
         Sdl.SDL_PumpEvents();
         Sdl.SDL_Event evt;
@@ -271,10 +283,20 @@ class Hardware
             }
             if (evt.type == Sdl.SDL_MOUSEBUTTONDOWN)
             {
-                mouseClickX = evt.motion.x;
-                mouseClickY = evt.motion.y;
+                oldMouseClickX = mouseClickX = evt.motion.x;
+                oldMouseClickY = mouseClickY = evt.motion.y;
             }
         }
+    }
+
+    public int GetOldMouseClickX()
+    {
+        return oldMouseClickX;
+    }
+
+    public int GetOldMouseClickY()
+    {
+        return oldMouseClickX;
     }
 
     // Scroll Methods

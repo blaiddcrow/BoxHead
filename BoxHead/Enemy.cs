@@ -8,6 +8,8 @@ class Enemy : MovableSprite
     public Image[] EnemyImages;
     public int ActualImage { get; set; }
     public Image EnemyImage;
+    private int movementDirection;
+    private int oldMovementDirection;
 
     public Enemy(double life, double damage, short speed)
     {
@@ -18,54 +20,78 @@ class Enemy : MovableSprite
         EnemyImages = new Image[36];
         initialiceImages();
         EnemyImage = EnemyImages[0];
+        oldMovementDirection = movementDirection = 0;
     }
 
-    public void GoToPlayer(Character character)
+    public void GoToPlayer(Character character, Level level)
     {
+        movementDirection = 0;
+
         short xDiff = (short)(character.X - this.X);
         short YDiff = (short)(character.Y - this.Y);
 
+        short oldX = X;
+        short oldY = Y;
+
         if (xDiff < 0 && YDiff < 0)
-        { 
+        {
+            movementDirection = 4;
             X -= Speed;
             Y -= Speed;
         }
         else if (xDiff < 0 && YDiff == 0)
         {
+            movementDirection = 3;
             X -= Speed;
         }
         else if (xDiff < 0 && YDiff > 0)
         {
+            movementDirection = 5;
             X -= Speed;
             Y += Speed;
         }
         else if (xDiff > 0 && YDiff < 0)
         {
+            movementDirection = 6;
             X += Speed;
             Y -= Speed;
         }
         else if (xDiff > 0 && YDiff == 0)
         {
+            movementDirection = 1;
             X += Speed;
         }
         else if (xDiff > 0 && YDiff > 0)
         {
+            movementDirection = 7;
             X += Speed;
             Y += Speed;
         }
         else if (xDiff == 0 && YDiff < 0)
         {
+            movementDirection = 0;
             Y -= Speed;
         }
         else
         {
+            movementDirection = 2;
             Y += Speed;
         }
 
-        if (!CollidesWith(character))
+        if (!CollidesWith(character) ||
+            (CheckIfCollides(level) && !isMovingInTheSameDirecction()))
             MoveTo(X, Y);
+        else
+            MoveTo(oldX, oldY);
+
+        oldMovementDirection = movementDirection;
 
         EnemyImages[ActualImage].MoveTo(X, Y);
+    }
+
+    private bool isMovingInTheSameDirecction()
+    {
+        return movementDirection == oldMovementDirection;
     }
 
     public void PonitToCharacter(int characterX, int characterY)
@@ -96,10 +122,38 @@ class Enemy : MovableSprite
             imageDegrees += 10;
         }
 
+        /*
         foreach (Image image in EnemyImages)
         {
             image.X = X;
             image.Y = Y;
+        }
+        */
+    }
+
+    public void MoveEnemy(
+        int direction, short speed, Character character)
+    {
+        switch (direction)
+        {
+            case 0: // Up to down
+                MoveTo(X, (short)(Y + speed));
+                EnemyImage.MoveTo(X, (short)(Y + speed));
+                break;
+            case 1: // Right to left
+                MoveTo((short)(X - speed), Y);
+                EnemyImage.MoveTo((short)(X - speed), Y);
+                break;
+            case 2: // Down to up
+                MoveTo(X, (short)(Y - speed));
+                EnemyImage.MoveTo(X, (short)(Y - speed));
+                break;
+            case 3: // Left to right
+                MoveTo((short)(X + speed), Y);
+                EnemyImage.MoveTo((short)(X + speed), Y);
+                break;
+            default:
+                break;
         }
     }
 
@@ -108,8 +162,38 @@ class Enemy : MovableSprite
         return CollidesWith(character);
     }
 
-    public void Attack(Character character)
+    public void Attack(Character character, ref DateTime timeStamp)
     {
-        character.Life -= Damage;
+        if ((DateTime.Now - timeStamp).TotalMilliseconds > 1000)
+        {
+            character.Life -= Damage;
+            timeStamp = DateTime.Now;
+        }
+    }
+
+    public bool CollidesWith(Character character)
+    {
+        return (X + EnemyImage.ImageWidth > character.X
+            && X < character.X + EnemyImage.ImageWidth
+            && Y + EnemyImage.ImageHeight > character.Y
+            && Y < character.Y + EnemyImage.ImageHeight);
+    }
+
+    public bool CollidesWith(Obstacle o)
+    {
+        return (X + EnemyImage.ImageWidth > o.X
+            && X < o.X + EnemyImage.ImageWidth
+            && Y + EnemyImage.ImageHeight > o.Y
+            && Y < o.Y + EnemyImage.ImageHeight);
+    }
+
+    public bool CheckIfCollides(Level level)
+    {
+        bool hasCollided = false;
+        for (int i = 0; i < level.Obstacles.Count && !hasCollided; i++)
+            hasCollided = CollidesWith(level.Obstacles[i]);
+        return hasCollided;
     }
 }
+
+

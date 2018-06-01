@@ -7,6 +7,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Threading;
 using Tao.Sdl;
 
 class GameScreen : Screen
@@ -30,7 +31,8 @@ class GameScreen : Screen
     private int mouseX, mouseY;
     private int mouseClickX, mouseClickY;
     public int Round { get; set; }
-    private Stopwatch stopwatch;
+    private Stopwatch timePlayedTimer;
+    private byte oldCharacterMovementDirection;
 
     public static int Points;
 
@@ -38,27 +40,28 @@ class GameScreen : Screen
         : base(hardware, languageController)
     {
         font = new Font("fonts/PermanentMarker-Regular.ttf", 20);
-  
+        enemyGenerator = new EnemyGenerator(hardware);
         level = new Level();
-        level.ActualLevel = "levels/level1.txt";
         level.Load();
         Character = new Character(300);
         Round = 1;
-        enemyGenerator = new EnemyGenerator(hardware);
-        enemy = new Enemy(100, 25, 1); // Test enemy.
+        itemGenerator = new ItemGenerator();
+        enemy = new Enemy(100, 15, 1); // Test enemy.
         Points = Character.Points;
-        stopwatch = new Stopwatch();
+        timePlayedTimer = new Stopwatch();
         roundTextEnglish = lifeTextEnglish = timePlayedTextEnglish =
             ammoTextEnglish = grenadesTextEnglish = new IntPtr();
         roundTextSpanish = lifeTextSpanish = timePlayedTextSpanish =
             ammoTextSpanish = grenadesTextSpanish = new IntPtr();
         initialiceTexts();
+        oldCharacterMovementDirection = Character.MovementDirection;
     }
 
     public GameScreen(Hardware hardware, Level level, GameController languageController)
         : this(hardware, languageController)
     {
         this.level = level;
+        level.Load();
     }
 
     public GameScreen(Hardware hardware, int round, GameController languageController)
@@ -80,7 +83,7 @@ class GameScreen : Screen
                 "AMMO: ", hardware.Red);
         grenadesTextEnglish = SdlTtf.TTF_RenderText_Solid(
                 new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
-                "GRENADES: ", hardware.Red);  
+                "GRENADES: ", hardware.Red);
         timePlayedTextEnglish = SdlTtf.TTF_RenderText_Solid(
                 new Font("fonts/PermanentMarker-Regular.ttf", 20).GetFontType(),
                 "TIME PLAYED: ", hardware.Red);
@@ -106,7 +109,7 @@ class GameScreen : Screen
 
     private string getPlatedTime()
     {
-        TimeSpan ts = stopwatch.Elapsed;
+        TimeSpan ts = timePlayedTimer.Elapsed;
         return String.Format(
             "{0:00}:{1:00}", ts.Minutes, ts.Seconds);
     }
@@ -169,6 +172,52 @@ class GameScreen : Screen
         }
     }
 
+    private void moveBullets()
+    {
+        foreach (Bullet b in Character.Glock.Bullets)
+        {
+            short xDiff = (short)(b.XDirection- b.X);
+            short YDiff = (short)(b.YDirection- b.Y);
+
+            if (xDiff < 0 && YDiff < 0)
+            {
+                b.X -= b.Speed;
+                b.Y -= b.Speed;
+            }
+            else if (xDiff < 0 && YDiff == 0)
+            {
+                b.X -= b.Speed;
+            }
+            else if (xDiff < 0 && YDiff > 0)
+            {
+                b.X -= b.Speed;
+                b.Y += b.Speed;
+            }
+            else if (xDiff > 0 && YDiff < 0)
+            {
+                b.X += b.Speed;
+                b.Y -= b.Speed;
+            }
+            else if (xDiff > 0 && YDiff == 0)
+            {
+                b.X += b.Speed;
+            }
+            else if (xDiff > 0 && YDiff > 0)
+            {
+                b.X += b.Speed;
+                b.Y += b.Speed;
+            }
+            else if (xDiff == 0 && YDiff < 0)
+            {
+                b.Y -= b.Speed;
+            }
+            else
+            {
+                b.Y += b.Speed;
+            }
+        }
+    }
+
     private void moveCharacter()
     {
         short moveUp = 0;
@@ -191,29 +240,75 @@ class GameScreen : Screen
 
         if (up)
         {
-            level.MoveObstacles(moveUp, Character.Speed);
-            level.YMap--;
+            Character.MovementDirection = 0;
+            if (Character.CheckIfCollides(level) && !isMovingInTheSameDirecction() ||
+                !Character.CheckIfCollides(level))
+            {
+                level.YMap--;
+                level.MoveObstacles(moveUp, Character.Speed);
+                moveEnemies(moveUp);
+                oldCharacterMovementDirection = Character.MovementDirection;
+            }
         }
         if (right)
         {
-            level.XMap++;
-            level.MoveObstacles(moveRight, Character.Speed);
+            Character.MovementDirection = 1;
+            if (Character.CheckIfCollides(level) && !isMovingInTheSameDirecction() ||
+                !Character.CheckIfCollides(level))
+            {
+                level.XMap++;
+                level.MoveObstacles(moveRight, Character.Speed);
+                moveEnemies(moveRight);
+                oldCharacterMovementDirection = Character.MovementDirection;
+            }
+            
         }
         if (down)
         {
-            level.YMap++;
-            level.MoveObstacles(moveDown, Character.Speed);
+            Character.MovementDirection = 2;
+            if (Character.CheckIfCollides(level) && !isMovingInTheSameDirecction() ||
+                !Character.CheckIfCollides(level))
+            {
+                level.YMap++;
+                level.MoveObstacles(moveDown, Character.Speed);
+                moveEnemies(moveDown);
+                oldCharacterMovementDirection = Character.MovementDirection;
+            }
         }
         if (left)
         {
-            level.XMap--;
-            level.MoveObstacles(moveLeft, Character.Speed);
+            Character.MovementDirection = 3;
+            if (Character.CheckIfCollides(level) && !isMovingInTheSameDirecction() ||
+                !Character.CheckIfCollides(level))
+            {
+                level.XMap--;
+                level.MoveObstacles(moveLeft, Character.Speed);
+                moveEnemies(moveLeft);
+                oldCharacterMovementDirection = Character.MovementDirection;
+            }
         }
+    }
+
+    private bool isMovingInTheSameDirecction()
+    {
+        return Character.MovementDirection == oldCharacterMovementDirection;
+    }
+
+    private void moveEnemies(int direction)
+    {
+        foreach (Enemy e in enemyGenerator.enemies)
+        {
+            e.MoveEnemy(direction, Character.Speed, Character);
+        }
+
+        enemy.MoveEnemy(direction, Character.Speed, Character);
     }
 
     public override void Show()
     {
-        stopwatch.Start();
+        timePlayedTimer.Start();
+        DateTime timeStampFromLastShot = DateTime.Now;
+        DateTime timeStampFromLastDamage = DateTime.Now;
 
         short centeredCharacterX =
             (short)((GameController.SCREEN_WIDTH / 2) - (Character.Width / 2));
@@ -223,7 +318,8 @@ class GameScreen : Screen
         Character.Image.MoveTo(centeredCharacterX, centeredCharacterY);
         Character.MoveTo(centeredCharacterX, centeredCharacterY);
 
-        enemyGenerator.StartRound(1);
+        enemyGenerator.InitialiceRound(Round);
+        enemyGenerator.SetEnemiesSpawnpoints();
 
         enemy.MoveTo(0, GameController.SCREEN_HEIGHT);
 
@@ -234,8 +330,8 @@ class GameScreen : Screen
             // 1. Draw everything.
             hardware.ClearScreen();
 
-            hardware.DrawSprite(level.Floor, 0, 0, level.XMap,
-                level.YMap, GameController.SCREEN_WIDTH,
+            hardware.DrawSprite(level.Floor, 0, 0, 0,
+                0, GameController.SCREEN_WIDTH,
                 GameController.SCREEN_HEIGHT);
 
             level.DrawObstacles(hardware);
@@ -246,6 +342,13 @@ class GameScreen : Screen
             {
                 hardware.DrawImage(enemy.EnemyImage);
             }
+
+            foreach (Bullet bullet in Character.
+                weapons[Character.ActualWeapon].Bullets)
+            {
+                hardware.DrawImage(bullet.Image);
+            }
+
             drawHud();
             hardware.UpdateScreen();
             // 2. Move character from keyboard input.
@@ -253,24 +356,41 @@ class GameScreen : Screen
             oldY = Character.Y;
             oldXMap = level.XMap;
             oldYMap = level.YMap;
+
             hardware.GetEvents(
-                out mouseX, out mouseY, out mouseClickX, out mouseClickY);
+                out mouseX, out mouseY,
+                out mouseClickX, out mouseClickY);
+
+            if (mouseClickX != hardware.GetOldMouseClickX() &&
+                mouseClickX != hardware.GetOldMouseClickY())
+            {
+                Character.weapons[Character.ActualWeapon].
+                    Bullets.Add(new Bullet(
+                        (short)mouseClickX, (short)mouseClickY));
+            }
+
+            moveBullets();
             moveCharacter();
             Character.Animate(mouseX, mouseY);
-            enemy.PonitToCharacter(Character.X, Character.Y);
 
             // 3. Move enemies and objects.
             foreach (Enemy enemy in enemyGenerator.enemies)
-                enemy.GoToPlayer(Character);
+            {
+                enemy.PonitToCharacter(Character.X, Character.Y);
+                enemy.GoToPlayer(Character, level);
+            }
 
-            enemy.GoToPlayer(Character);
+            enemy.PonitToCharacter(Character.X, Character.Y);
+            enemy.GoToPlayer(Character, level);
 
             // 4. Check collisions and update game state.
             if (enemy.CharacterIsOnRange(Character))
-                enemy.Attack(Character);
+            {
+                enemy.Attack(Character, ref timeStampFromLastDamage);
+            }
         }
         while (Character.Life > 0 && !hardware.IsKeyPressed(Hardware.KEY_ESC));
-        stopwatch.Reset();
+        timePlayedTimer.Reset();
     }
 
     public Character GetCharacter()

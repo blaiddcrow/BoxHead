@@ -1,12 +1,15 @@
-﻿abstract class Weapon : StaticSprite
+﻿using System.Collections.Generic;
+
+abstract class Weapon : StaticSprite
 {
-    public Bullet Bullet { get; set; }
     public int Ammo { get; set; }
     public int MaxAmountOfAmmo { get; }
+    public short ShootInterval { get; set; }
+    public List<Bullet> Bullets { get; set; }
 
-    public Weapon(Bullet bullet, int maxAmountOfAmmo)
+    public Weapon(int maxAmountOfAmmo)
     {
-        Bullet = bullet;
+        Bullets = new List<Bullet>();
         MaxAmountOfAmmo = maxAmountOfAmmo;
         Ammo = maxAmountOfAmmo;
     }

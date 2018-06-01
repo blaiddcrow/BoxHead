@@ -26,20 +26,4 @@ class Sprite
         X = x;
         Y = y;
     }
-
-    public bool CollidesWith(Sprite sp)
-    {
-        return (X + this.Width > sp.X 
-            && X < sp.X + this.Width
-            && Y + this.Height > sp.Y 
-            && Y < sp.Y + this.Height);
-    }
-
-    public bool CollidesWith(List<Sprite> sprites)
-    {
-        foreach (Sprite sp in sprites)
-            if (this.CollidesWith(sp))
-                return true;
-        return false;
-    }
 }

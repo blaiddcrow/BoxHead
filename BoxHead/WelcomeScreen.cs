@@ -19,7 +19,7 @@ class WelcomeScreen : Screen
         short contText=0;
 
         do
-         {
+        {
             hardware.ClearScreen();
             hardware.DrawSprite(background, 0, 0, 0, 0
                 , GameController.SCREEN_WIDTH,
@@ -38,8 +38,7 @@ class WelcomeScreen : Screen
             hardware.UpdateScreen();
 
             if (contText<(GameController.SCREEN_HEIGHT/2)+250)
-                contText++;
-            
+                contText++; 
         }
         while (!CanGoToNextScreen());  
     }

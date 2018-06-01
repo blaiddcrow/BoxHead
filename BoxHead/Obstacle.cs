@@ -19,4 +19,9 @@
     {
         return X + ";" + Y;
     }
+
+    public char GetTypeOfObstacle()
+    {
+        return char.Parse(ToString().Split(';')[0]);
+    }
 }

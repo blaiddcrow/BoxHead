@@ -38,14 +38,20 @@ class Level
         Items = new List<Item>();
         Floor = new Image("imgs/others/floor.png", 1280, 720);
         XMap = YMap = 0;
+        ActualLevel = "levels/level1.txt";
+    }
+
+    public Level(string level) : this()
+    {
+        ActualLevel = level;
     }
 
     public void DrawObstacles(Hardware hardware)
     {
         foreach (Obstacle o in Obstacles)
         {
-            hardware.DrawSprite(o.Image, (short)(o.X - XMap), (short)(o.Y - YMap), 0, 0,
-                   GameController.SCREEN_WIDTH, GameController.SCREEN_HEIGHT);
+            o.Image.MoveTo(o.X, o.Y);
+            hardware.DrawImage(o.Image);
         }
     }
 
@@ -141,20 +147,4 @@ class Level
     public void AddMine(Mine m) { Obstacles.Add(m); }
 
     public void AddWall(SpawnPoint s) { Obstacles.Add(s); }
-
-    public bool CollidesCharacterWithHealthpack(Character character)
-    {
-        int pos = 0;
-        bool collided = false;
-        while (pos < Healthpacks.Count && !collided)
-        {
-            if (character.CollidesWith(Healthpacks[pos]))
-            {
-                collided = true;
-                Healthpacks.RemoveAt(pos);
-            }
-            pos++;
-        }
-        return collided;
-    }
 }

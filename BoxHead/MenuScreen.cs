@@ -98,9 +98,9 @@ class MenuScreen : Screen
     {
         string[] optionsSpanish =
         {
-            "Empezar nueva partida.", "Continuar partida",
-            "Seleccionar mapa.", "Ver puntuaciones.", "Editor de mapas.",
-            "Cambiar idioma.", "Salir."
+            "Empezar nueva partida", "Continuar partida",
+            "Seleccionar mapa", "Ver puntuaciones", "Editor de mapas",
+            "Cambiar idioma", "Salir"
         };
         renderOptionsSpanish(optionsSpanish);
 
@@ -111,9 +111,9 @@ class MenuScreen : Screen
 
         string[] optionsEnglish =
         {
-            "Start a new game.", "Continue game.", "Select map.",
-            "See highscores.", "Map editor.", "Switch language",
-            "Quit the game."
+            "Start a new game", "Continue game", "Select map",
+            "See highscores", "Map editor", "Switch language",
+            "Quit the game"
         };
         renderOptionsEnglish(optionsEnglish);
 

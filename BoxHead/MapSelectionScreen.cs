@@ -139,5 +139,8 @@ class MapSelectionScreen : Screen
                 selectedLevel = levelPaths[ActualLevel];       
         }
         while (!isOptionSelected);
+        GameScreen game = new GameScreen(
+            hardware, new Level(selectedLevel), languageController);
+        game.Show();
     }
 }

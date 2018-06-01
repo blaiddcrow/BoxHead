@@ -7,6 +7,7 @@ class Character : MovableSprite
     public double Life { get; set; }
     public bool IsAlive { get; set; }
     public List<Weapon> weapons { get; }
+    public Pistol Glock { get; set; }
     public int ActualWeapon { get; set; }
     public int AmountOfgrenades { get; set; }
     public int Points { get; set; }
@@ -15,6 +16,7 @@ class Character : MovableSprite
     public Image[] Pistol;
     public short XMap { get; set; }
     public short YMap { get; set; }
+    public byte MovementDirection { get; set; }
 
     public Character(double life)
     {
@@ -22,7 +24,8 @@ class Character : MovableSprite
         Speed = 2;
         IsAlive = true;
         weapons = new List<Weapon>();
-        weapons.Add(new Pistol(new Bullet(25.5f), 20));
+        Glock = new Pistol(15);
+        weapons.Add(Glock);
         ActualWeapon = 0;
         Pistol = new Image[36];
         initialiceImages();
@@ -30,6 +33,7 @@ class Character : MovableSprite
         AmountOfgrenades = 3;
         Image = Pistol[ActualImage]; // TODO: Change between weapons.
         Points = 0;
+        MovementDirection = 0;
     }
 
     private void initialiceImages()
@@ -52,7 +56,6 @@ class Character : MovableSprite
         }
     }
 
-
     private bool isBetween(double number, int min, int max)
     {
         return number > min && number < max;
@@ -73,8 +76,46 @@ class Character : MovableSprite
         Image = Pistol[ActualImage];
     }
 
-    public void Shoot(int mouseX, int mouseY)
+    public bool CollidesWith(Obstacle o)
     {
-        // TODO: Make the logic of the shoots.
+        return (X + Image.ImageWidth > o.X
+            && X < o.X + Image.ImageWidth
+            && Y + Image.ImageHeight > o.Y
+            && Y < o.Y + Image.ImageHeight);
+    }
+
+    public bool CheckIfCollides(Level level)
+    {
+        bool hasCollided = false;
+        for (int i = 0; i < level.Obstacles.Count && !hasCollided; i++)    
+            hasCollided = CollidesWith(level.Obstacles[i]);
+        return hasCollided;
+    }
+
+    public void Shoot(short mouseX, short mouseY, ref DateTime timeStampFromLastShot)
+    {
+        if ((DateTime.Now - timeStampFromLastShot).TotalMilliseconds
+            > Glock.ShootInterval)
+        {
+            timeStampFromLastShot = DateTime.Now;
+            AddBullet(mouseX, mouseY);
+        }
+    }
+
+    public void AddBullet(short mouseX, short mouseY)
+    {
+        Bullet newBullet = new Bullet(mouseX, mouseX);
+        newBullet.X = 
+            (short)(GameController.SCREEN_WIDTH / 2 - newBullet.Width / 2);
+        newBullet.Y = 
+            (short)(GameController.SCREEN_HEIGHT / 2 - newBullet.Height / 2);
+        newBullet.CurrentDirection = this.CurrentDirection;
+        newBullet.UpdateSpriteCoordinates();
+        weapons[ActualWeapon].Bullets.Add(newBullet);
+    }
+
+    public void RemoveBullet(int index)
+    {
+        weapons[ActualWeapon].Bullets.RemoveAt(index);
     }
 }

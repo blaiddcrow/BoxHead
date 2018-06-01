@@ -1,8 +1,8 @@
-﻿
-class Pistol : Weapon
+﻿class Pistol : Weapon
 {
-    public Pistol(Bullet bullet, int maxAmountOfAmmo) 
-        : base(bullet, maxAmountOfAmmo)
+    public Pistol(int maxAmountOfAmmo) 
+        : base(maxAmountOfAmmo)
     {
+        ShootInterval = 200;
     }
 }

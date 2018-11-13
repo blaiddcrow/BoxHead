@@ -14,6 +14,7 @@ class ItemGenerator
     private int maxAmountOfHealthPacks;
     private int maxAmountOfAmmoPacks;
     private int maxAmountOfGrenadePacks;
+
     public ItemGenerator()
     {
         rdn = new Random();
